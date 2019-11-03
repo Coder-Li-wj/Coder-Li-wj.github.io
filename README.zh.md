@@ -102,7 +102,7 @@ yaml 头文件长这样:
 ```
 ---
 layout:     post
-title:      "Hello 2015"
+title:      "My First Acticle"
 subtitle:   "Hello World, Hello Blog"
 date:       2015-01-29 12:00:00
 author:     "Hux"
