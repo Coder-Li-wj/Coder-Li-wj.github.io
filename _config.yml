@@ -77,7 +77,7 @@ ga_domain: huangxuan.me
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "The peak ushers in the hypocritical spectator, and the dusk witnesses the true believer<br>巅峰迎来虚伪的看客，黄昏见证真正的信徒"
+sidebar-about-description: "巅峰迎来虚伪的看客<br>黄昏见证真正的信徒"
 sidebar-avatar: /img/about-me.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
