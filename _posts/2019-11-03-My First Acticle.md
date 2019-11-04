@@ -2,7 +2,7 @@
 layout:     post
 title:      "My First Blog"
 subtitle:   "我的第一个博客"
-date:       2019-11-03 17:35:00
+date:       2019-11-03 15:47:00
 author:     "Coder-Li-wj"
 tags:
     - Life
@@ -13,5 +13,8 @@ tags:
 <br> 
 <hr>
 
-<!-- ###### [我的博客在这里 &rarr;](https://Coder-Li-wj.github.io)[https://Coder-Li-wj.github.io] -->
-###### 我的博客地址 &rarr [https://Coder-Li-wj.github.io](https://Coder-Li-wj.github.io)
+###### 我的博客地址 &rarr; [https://Coder-Li-wj.github.io](https://Coder-Li-wj.github.io)
+
+### 你好啊!
+> 今天我寒夜里看雪飘过，怀着了冷却的心窝飘远方，风雨里追赶，雾里分不清影踪，天空海阔你与我，可会变
+
