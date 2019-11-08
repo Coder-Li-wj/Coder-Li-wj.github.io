@@ -7,21 +7,16 @@ author:     "Coder-Li-wj"
 tags:
     - Life
 ---
-vscode使用Markdown文档编写  
-可以新建一个.md文件  
+<h2>vscode使用Markdown文档编写</h2>  
+可以新建一个&nbsp.md文件  
 Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：  
-  1.Ctrl + Shift + P 调出主命令框，输入 Markdown，应该会匹配到几项 Markdown相关命令  
+  1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令  
   2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】  
 
 <P style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">标题</p>
-使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。  
+使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。 
 
-# #一级标题  
-## ##二级标题  
-### ###三级标题  
-#### ####四级标题  
-##### #####五级标题  
-###### ######六级标题  
+![](../img/MarkDown/biaoti.png '标题例子')  
   
 <P style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">换行</p>  
  编辑好一行文字后敲两个空行，再按回车键编辑另一行文字  
