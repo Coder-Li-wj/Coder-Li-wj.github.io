@@ -7,26 +7,78 @@ author:     "Coder-Li-wj"
 tags:
     - Life
 ---
-<h2>vscode使用Markdown文档编写</h2>  
+## vscode使用Markdown文档编写  
+
 可以新建一个&nbsp.md文件  
 Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：  
-  1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令  
-  2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】  
+1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令  
+2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】  
+PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览效果
 
-<P style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">标题</p>
-使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。 
+## 标题  
 
-![](../img/MarkDown/biaoti.png '标题例子')  
-  
-<P style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">换行</p>  
- 编辑好一行文字后敲两个空行，再按回车键编辑另一行文字  
-  
-<P style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">markdown空格缩进以及HTML空格实体</p>  
+使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。  
 
-### 1.markdowm首行缩进方法
-> 一个汉字占两个空格大小，所以使用四个空格就可以达到首行缩进两个汉字的效果。有如下几种方法：
->> 1.一个空格大小的表示：<span style="color:red">&ensp</span>;或<span style="color:red">&#8194</span>;，此时只要在相应需要缩进的段落前加上 4个 如上的标记即可，注意要带上分号。  
->> 2.两个空格的大小表示：<span style="color:red">&emsp</span>;或<span style="color:red">&#8195</span>;，同理，使用2个即可缩进2个汉字，推荐使用该方式。  
->> 3.不换行空格：<span style="color:red">&nbsp</sapn>;或<span style="color:red">&#160</sapn>;，使用4个<span style="color:red">&#160</sapn>;即可。  
-### 2.HTML中的实体空格  
-HTML提供了5种空格实体（space entity），它们拥有不同的宽度，非断行空格<span style="color:red">&nbsp</span>;是常规空格的宽度，可运行于所有主流浏览器。其他几种空格（<span style="color:red">&ensp</span>; <span style="color:red">&emsp</span>; <span style="color:red">&thinsp</sapn>; <span style="color:red">&zwnj</span>; <span style="color:red">&zwj</span></span>;）在不同浏览器中宽度各异。
+![标题使用例子](../img/MarkDown/biaoti.png '标题例子')  
+
+## 字体  
+
+1. 加粗：要加粗的文字左右分别用两个*包起来  
+2. 斜体：要倾斜的文字左右分别用一个*包起来  
+3. 斜体加粗：要倾斜和加粗的文字左右分别用三个***包起来
+4. 删除线：要添加删除线的文字左右分别用两个~~包起来  
+5. 下划线：用\<u></u>来包裹需要下划线的文字  
+6. 脚注：[^要注明的文本]  
+例如：![脚注使用例子](../img/MarkDown/jiaozhu.png)  
+
+## 段落  
+
+换行：编辑好一行文字后敲两个空格，再按回车键编辑另一行文字  
+
+## 引用  
+
+在要引用的文字前加>即可。（也可以嵌套引用，如加两个>>，三个>>...，以此类推）  
+
+## 分割线  
+
+三个或以上的-或*都可以  
+
+## 图片  
+
+语法：![图片alt](图片地址 ''图片title'')  
+
+1. 图片alt就是显示在图片下面的文字，相当于对图片内容的解释。
+2. 图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加  
+
+## 列表  
+
+1. 无序列表：使用*或+或-作为列表标记  
+2. 有序列表：使用数字加上.来表示  
+3. 列表嵌套：只需在子列表的选项前添加4个空格  
+
+## 代码  
+
+1. 如果是段落上的一个函数或片段的代码可以用反单引号（`）来包裹  
+2. 代码区块使用4个空格或者一个制表符（Tab键），也可以用单个反单引号（```）来包裹  
+
+## 链接  
+
+\[链接名称](链接地址) 或  <链接地址>  
+
+## 表格  
+
+制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。  
+例如：  
+![表格使用例子](../img/MarkDown/table.png)  
+设置表格的对齐方式：  
+
+* **:-** &nbsp; 设置内容和标题栏居左对齐  
+* **-:** &nbsp; 设置内容和标题栏居左对齐
+* **:-:** &nbsp; 设置内容和标题栏居左对齐  
+例如：  
+
+![表格对齐例子](../img/MarkDown/table-center.png)
+
+## 高级技巧  
+
+1. 支持的 HTML 元素：目前支持的 HTML 元素有：\<kbd> \<b> \<i> \<em> \<sup> \<sub> \<br> 等

@@ -1,0 +1,40 @@
+I"�	<h2 id="vscode使用markdown文档编写">vscode使用Markdown文档编写</h2>
+<p>可以新建一个&amp;nbsp.md文件<br />
+Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：<br />
+1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令<br />
+2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】<br />
+PS:在Vscode中编写markdown文件时也可以通过<strong>ctrl+shift+v</strong>来预览效果</p>
+
+<h2 id="标题">标题</h2>
+<p>使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。</p>
+
+<p><img src="../img/MarkDown/biaoti.png" alt="" title="标题例子" /></p>
+
+<h2 id="字体">字体</h2>
+<ol>
+  <li>加粗：要加粗的文字左右分别用两个*包起来</li>
+  <li>斜体：要倾斜的文字左右分别用一个*包起来</li>
+  <li>斜体加粗：要倾斜和加粗的文字左右分别用三个***包起来</li>
+  <li>删除线：要添加删除线的文字左右分别用两个~~包起来</li>
+</ol>
+
+<h2 id="段落">段落</h2>
+<ol>
+  <li>换行：编辑好一行文字后敲两个空格，再按回车键编辑另一行文字</li>
+  <li></li>
+</ol>
+
+<p style="color:red; font-size:20px; background-color: lightblue; font-weight: 1000">markdown空格缩进以及HTML空格实体</p>
+
+<h3 id="1markdowm首行缩进方法">1.markdowm首行缩进方法</h3>
+<blockquote>
+  <p>一个汉字占两个空格大小，所以使用四个空格就可以达到首行缩进两个汉字的效果。有如下几种方法：</p>
+  <blockquote>
+    <p>1.一个空格大小的表示：<strong>&amp;ensp</strong>或<strong>&amp;#8194</strong>，此时只要在相应需要缩进的段落前加上 4个 如上的标记即可，注意要带上分号。<br />
+2.两个空格的大小表示： 或 ，同理，使用2个即可缩进2个汉字，推荐使用该方式。<br />
+3.不换行空格：&amp;nbsp&lt;/sapn&gt;;或&amp;#160&lt;/sapn&gt;;使用4个&amp;#160&lt;/sapn&gt;;即可。</p>
+    <h3 id="2html中的实体空格">2.HTML中的实体空格</h3>
+    <p>HTML提供了5种空格实体（space entity），它们拥有不同的宽度，非断行空格 是常规空格的宽度，可运行于所有主流浏览器。其他几种空格（      ‌ ‍）在不同浏览器中宽度各异。</p>
+  </blockquote>
+</blockquote>
+:ET
