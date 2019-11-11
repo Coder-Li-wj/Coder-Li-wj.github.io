@@ -19,7 +19,7 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 
 使用 # 号可表示 1-6 级标题，一级标题对应一个 # 号，二级标题对应两个 # 号，以此类推。  
 
-![标题使用例子](../img/MarkDown/biaoti.png '标题例子')  
+![标题使用例子](/img/MarkDown/biaoti.png '标题例子')  
 
 ### 字体  
 
@@ -29,7 +29,7 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 4. 删除线：要添加删除线的文字左右分别用两个~~包起来  
 5. 下划线：用\<u></u>来包裹需要下划线的文字  
 6. 脚注：[^要注明的文本]  
-例如：![脚注使用例子](../img/MarkDown/jiaozhu.png)  
+例如：![脚注使用例子](/img/MarkDown/jiaozhu.png)  
 
 ### 段落  
 
@@ -45,7 +45,7 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 
 ### 图片  
 
-语法：![图片alt](图片地址 ''图片title'')  
+语法：\![图片alt](图片地址 ''图片title'')  
 
 1. 图片alt就是显示在图片下面的文字，相当于对图片内容的解释。
 2. 图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加  
@@ -69,7 +69,7 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 
 制作表格使用 | 来分隔不同的单元格，使用 - 来分隔表头和其他行。  
 例如：  
-![表格使用例子](../img/MarkDown/table.png)  
+![表格使用例子](/img/MarkDown/table.png)  
 设置表格的对齐方式：  
 
 * **:-** &nbsp; 设置内容和标题栏居左对齐  
@@ -77,8 +77,9 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 * **:-:** &nbsp; 设置内容和标题栏居左对齐  
 例如：  
 
-![表格对齐例子](../img/MarkDown/table-center.png)
+![表格对齐例子](/img/MarkDown/table-center.png)
 
 ### 高级技巧  
 
-1. 支持的 HTML 元素：目前支持的 HTML 元素有：\<kbd> \<b> \<i> \<em> \<sup> \<sub> \<br> 等
+1. 支持的 HTML 元素：目前支持的 HTML 元素有：\<kbd> \<b> \<i> \<em> \<sup> \<sub> \<br> 等  
+

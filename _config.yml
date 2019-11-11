@@ -15,8 +15,6 @@ future: true
 RSS: false
 weibo_username:     桔梨萝柚
 github_username:    Coder-Li-wj
-#facebook_username:  huxpro
-#linkedin_username:  firstname-lastname-idxxxx
 
 
 
@@ -75,14 +73,14 @@ ga_domain: huangxuan.me
 
 
 
-# Sidebar settings
+# Sidebar settings //侧边栏
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "巅峰迎来虚伪的看客<br>黄昏见证真正的信徒"
 sidebar-avatar: /img/about-me.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
-# Featured Tags
+# Featured Tags  //推荐标签
 featured-tags: true                     # whether or not using Feature-Tags
 featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
 

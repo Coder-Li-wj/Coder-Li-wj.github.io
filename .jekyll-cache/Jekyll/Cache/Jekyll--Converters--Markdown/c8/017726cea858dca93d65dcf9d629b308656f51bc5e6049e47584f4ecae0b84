@@ -1,4 +1,4 @@
-I"q<h2 id="vscode使用markdown文档编写">vscode使用Markdown文档编写</h2>
+I"�<h2 id="vscode使用markdown文档编写">vscode使用Markdown文档编写</h2>
 
 <p>可以新建一个&amp;nbsp.md文件<br />
 Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：<br />
@@ -85,4 +85,6 @@ PS:在Vscode中编写markdown文件时也可以通过<strong>ctrl+shift+v</stron
 <ol>
   <li>支持的 HTML 元素：目前支持的 HTML 元素有：&lt;kbd&gt; &lt;b&gt; &lt;i&gt; &lt;em&gt; &lt;sup&gt; &lt;sub&gt; &lt;br&gt; 等</li>
 </ol>
+
+<p><img src="../../../../_site/img/404-bg.jpgabout-me.png" alt="test" /></p>
 :ET
