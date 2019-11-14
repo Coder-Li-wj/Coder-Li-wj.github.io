@@ -1,0 +1,9 @@
+I"�<h3 id="如何把一个字符串的大小写取反例如abc变成abc">如何把一个字符串的大小写取反？例如：‘Abc’变成‘aBC’</h3>
+<p>```javascript
+let str = “Hello World! 你好，世界！”
+let len = str.length
+for(let i = 0; i &lt; len; i++){
+    if (str[i].charCodeAt() &gt;= 65 &amp;&amp; str[i].charCodeAt() &lt;= 90){
+        str.toUpperCase()
+    }else if(str[i].charCodeAt() &gt;= 97 &amp;&amp; str[i].charCodeAt() &lt;= 122) {</p>
+:ET

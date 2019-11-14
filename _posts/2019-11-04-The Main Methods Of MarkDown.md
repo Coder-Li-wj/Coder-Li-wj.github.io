@@ -4,8 +4,7 @@ title:      "MarkDown的基本语法"
 subtitle:   "介绍博客创建的基本方法和MarkDown的基本语法"
 date:       2019-11-04 20:48：52
 author:     "Coder-Li-wj"
-tags:
-    - Life
+tags:       MarkDown
 ---
 ## vscode使用Markdown文档编写  
 
@@ -45,7 +44,7 @@ PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览�
 
 ### 图片  
 
-语法：\![图片alt](图片地址 ''图片title'')  
+语法： ! [图片alt] (图片地址 ''图片title'') 
 
 1. 图片alt就是显示在图片下面的文字，相当于对图片内容的解释。
 2. 图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加  

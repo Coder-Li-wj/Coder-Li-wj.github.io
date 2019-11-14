@@ -1,0 +1,40 @@
+I"2<h2 id="一numberprototype">一、Number.prototype</h2>
+
+<ol>
+  <li>Number.prototype属性表示Number构造函数的原型。</li>
+  <li>所有Number的实例都会继承Number.prototype，修改Number构造函数的原型对象都会影响到所有Number的实例。</li>
+  <li>所以通过给Number.prototype增加方法可以让该方法对所有Number的实例都可用。</li>
+</ol>
+
+<h2 id="二number方法">二、Number方法</h2>
+
+<p>我们通过谷歌浏览的控制台把Number实例的原生方法打印出来，如图：<br />
+<img src="/img/MarkDown/Number-prototype.png" alt="Number实例的原生方法" title="Number实例的原生方法" /></p>
+
+<h2 id="三实现5add3minus2使其输出结果为6">三、实现(5).add(3).minus(2),使其输出结果为6</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">add</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span> <span class="o">+</span> <span class="nx">num</span>
+<span class="p">}</span>
+<span class="nb">Number</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">minus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span> <span class="o">-</span> <span class="nx">num</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">((</span><span class="mi">5</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">minus</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后再去控制台打印一下Number.prototype，会发现多出了两个全局方法add和minus，如图：<br />
+<img src="/img/MarkDown/change-number-prototype.png" alt="在Number的原型上增加方法" title="在Number的原型上增加方法" /></p>
+
+<p><br /></p>
+
+<ul>
+  <li>PS：以后想实现实例调取方法，只需把该方法放到当前实例所属类的原型上，另外，想要实现链式写法，就让当前方法执行完的结果还是当前类的实例，这样就能继续调用该类的其他方法。</li>
+</ul>
+:ET

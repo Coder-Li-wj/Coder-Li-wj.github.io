@@ -1,0 +1,74 @@
+I"f<h2 id="call和apply的区别是什么哪个性能更好一些">call和apply的区别是什么，哪个性能更好一些？</h2>
+
+<h3 id="区别">区别：</h3>
+
+<ol>
+  <li>call和apply都是function原型上的方法，而每一个函数作为function这个类的实例，所以可以调用原型上的call和apply方法。</li>
+  <li>
+    <p>call和apply都是用来改变函数中this的指向，唯一的区别在于传给函数参数的方式不同，call是一个个传参，apply要求把所有参数以数组的形式传给函数。</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>  `fn.call(obj, 10, 20, 30)`  
+  `fn.apply(obj, [10, 20, 30])`  
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>与call和apply相类似的方法是bind，bind方法也是用来改变this的指向，但是bind并没有把函数立即执行，只是预先处理改变this。</li>
+</ol>
+
+<h3 id="性能比较">性能比较：</h3>
+
+<p>call的性能要比apply好一点（尤其是传递函数的参数超过三个的时候），所以后期开发的时候可以使用call多一点。</p>
+
+<p>使用apply的情况：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span> <span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+    <span class="nx">obj</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="kd">function</span> <span class="nx">fn</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="nx">z</span><span class="p">)</span> <span class="p">{}</span>
+<span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span> <span class="c1">//x=10,y=20,z=30</span>
+<span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">arr</span><span class="p">);</span> <span class="c1">//x=[10, 20, 30], y=z=undefined</span>
+<span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">...</span><span class="nx">arr</span><span class="p">);</span> <span class="c1">//基于ES6的展开运算符也可以实现把数组中的每一项依次传递给函数</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="自己实现性能测试">自己实现性能测试</h3>
+
+<p>PS：但是结果只供参考，任何代码性能的测试都是和测试环境有关系的，例如CPU、内存、GPU等电脑性能，且不同浏览器也会导致性能上的不同。</p>
+
+<p>测试循环十万次的方法：</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre> <span class="c1">//普通方法，不精准，循环次数少的话直接显示0</span>
+ <span class="kd">let</span> <span class="nx">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+ <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++&gt;</span><span class="p">){</span>
+   <span class="p">}</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">-</span> <span class="nx">t1</span><span class="p">)</span>
+
+ <span class="c1">//使用console.tme方法测试一段程序执行的时间</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="dl">'</span><span class="s1">A</span><span class="dl">'</span><span class="p">);</span> <span class="c1">//A是指该次测试的名字</span>
+ <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++&gt;</span><span class="p">){</span>
+    <span class="p">}</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="dl">'</span><span class="s1">A</span><span class="dl">'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><br /></p>
+
+<ul>
+  <li>另外，console.profile()在火狐浏览器中安装FireBug控制台，可以更精准的获取到程序每一个步骤所消耗的时间</li>
+</ul>
+:ET
