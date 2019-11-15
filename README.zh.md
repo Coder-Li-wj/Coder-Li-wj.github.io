@@ -1,6 +1,6 @@
 # Hux blog 模板
 
-### [我的博客在这里 &rarr;](http://huxpro.github.io)
+### [我的博客在这里 &rarr;](https://Coder-Li-wj.github.io)
 
 
 ### 关于收到"Page Build Warning"的email
@@ -21,13 +21,13 @@
 
 ## 关于模板(beta)
 
-我的博客仓库——`huxpro.github.io`，是经常修改的，而且还会有人乱提交代码，因此给大家做了一个稳定版的模板。大家可以直接fork模板——`huxblog-boilerplate`,要改的地方我都说明了。或者可以直接下载zip到本地自己去修改。
+我的博客仓库——`Coder-Li-wj.github.io`，是经常修改的，而且还会有人乱提交代码，因此给大家做了一个稳定版的模板。大家可以直接fork模板——`huxblog-boilerplate`,要改的地方我都说明了。或者可以直接下载zip到本地自己去修改。
 
 ```
-$ git clone git@github.com:Huxpro/huxblog-boilerplate.git
+$ git clone https://github.com/Coder-Li-wj/Coder-Li-wj.github.io.git
 ```
 
-**[在这里预览模板 &rarr;](http://huangxuan.me/huxblog-boilerplate/)**
+**[在这里预览模板 &rarr;](https://coder-li-wj.github.io/)**
 
 ## 各版本特性
 
@@ -105,8 +105,8 @@ layout:     post
 title:      "My First Acticle"
 subtitle:   "Hello World, Hello Blog"
 date:       2015-01-29 12:00:00
-author:     "Hux"
-header-img: "img/post-bg-2015.jpg"
+author:     "Coder-Li-wj"
+header-img: "img/js.jpg"
 tags:
     - Life
 ---
@@ -115,8 +115,6 @@ tags:
 
 #### SideBar
 
-看右边:
-![](http://huangxuan.me/img/blog-sidebar.jpg)
 
 设置是在 `_config.yml`文件里面的`Sidebar settings`那块。
 ```
@@ -174,7 +172,6 @@ friends: [
 
 HTML5幻灯片的排版：
 
-![](http://huangxuan.me/img/blog-keynote.jpg)
 
 这部分是用于占用html格式的幻灯片的，一般用到的是 Reveal.js, Impress.js, Slides, Prezi 等等.我认为一个现代化的博客怎么能少了放html幻灯的功能呢~
 

@@ -1,0 +1,32 @@
+I"�<h3 id="如何把一个字符串的大小写取反例如abc变成abc">如何把一个字符串的大小写取反？例如：‘Abc’变成‘aBC’</h3>
+<p>思路：首先用<strong>split()</strong>方法将字符串分割成数组，再利用for循环遍历数组每一个元素，遍历每一项过程中使用if语句判断当前元素的ACSII码值（使用<strong>charCodeAt()</strong>方法可以得到ASCII码值）在大写（小写）的范围内，就使用<strong>toLowerCase()</strong>方法（<strong>toUpperCase()</strong>方法）转换成小写（大写），并把所得的值保存起来，遍历完最后一项后退出for循环，并将数组用<code class="highlighter-rouge">join()</code>方法合并成字符串返回。</p>
+
+<p><strong><em>代码如下：</em></strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">a</span><span class="p">(){</span>
+        <span class="kd">let</span> <span class="nx">str</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Hello World! 你好，世界！</span><span class="dl">"</span>
+        <span class="kd">let</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span>
+            <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">''</span><span class="p">)</span> <span class="c1">//将字符串拆分为数组</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">65</span> <span class="o">&amp;&amp;</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">){</span>
+                <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()</span>
+            <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="mi">97</span> <span class="o">&amp;&amp;</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">charCodeAt</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">122</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">''</span><span class="p">)</span> <span class="c1">//将数组合并成字符串</span>
+    <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

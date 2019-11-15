@@ -1,9 +1,8 @@
-Hux Blog
+Coder-Li-wj Blog
 ========
 
-### [View Live Hux Blog &rarr;](https://huangxuan.me)  
+### [View Live Coder-Li-wj Blog &rarr;](https://Coder-Li-wj.github.io)  
 
-![](http://huangxuan.me/img/blog-desktop.jpg)
 
 
 Boilerplate (beta)
@@ -14,17 +13,11 @@ Boilerplate (beta)
 Want to clone a boilerplate instead of my buzz blog? Here comes this!  
 
 ```
-$ git clone git@github.com:Huxpro/huxblog-boilerplate.git
+$ git clone https://github.com/Coder-Li-wj/Coder-Li-wj.github.io.git
 ```
 
-**[View Boilerplate Here &rarr;](http://huangxuan.me/huxblog-boilerplate/)**
+**[View Boilerplate Here &rarr;](https://coder-li-wj.github.io/)**
 
-
-Porting 
---------
-
-- [**Hexo**](https://github.com/Kaijun/hexo-theme-huxblog) by @kaijun
-- [**React-SSR**](https://github.com/LucasIcarus/huxpro.github.io/tree/ssr) by @LucasIcarus
 
 
 Translation
@@ -92,7 +85,6 @@ Shout out to [@kitian616/jekyll-TeXt-theme](https://github.com/kitian616/jekyll-
 
 - Big Improvement to the **Navigation Menu** *(especially in Android)*:  Dropping the old, stuttering, low-performance [Bootstrap collapse.js](http://getbootstrap.com/javascript/#collapse),  replaced with an own wrote, [jank free](http://jankfree.org/) navbar menu in a pretty high-performance implementation of [Google Material Design](https://www.google.com/design/spec/material-design/introduction.html).
 
-<img src="http://huangxuan.me/img/blog-md-navbar.gif" width="320" />
 
 
 #### V1.2
@@ -187,8 +179,8 @@ layout:     post
 title:      "Hello 2015"
 subtitle:   "Hello World, Hello Blog"
 date:       2015-01-29 12:00:00
-author:     "Hux"
-header-img: "img/post-bg-2015.jpg"
+author:     "Coder-Li-wj"
+header-img: "img/js.jpg"
 tags:
     - Life
 ---
@@ -196,7 +188,6 @@ tags:
 
 ### SideBar
 
-![](http://huangxuan.me/img/blog-sidebar.jpg)
 
 **SideBar** provides possible modules to show off more personal information.
 
@@ -253,7 +244,6 @@ friends: [
 
 ### Keynote Layout
 
-![](http://huangxuan.me/img/blog-keynote.jpg)
 
 There is a increased trend to use Open Web technology for keynotes and presentations via Reveal.js, Impress.js, Slides, Prezi etc. I consider a modern blog should have first-class support to embed these HTML based presentation so **Keynote layout** are made.
 
