@@ -1,0 +1,4 @@
+I"a<h3 id="1如何把一个字符串的大小写取反例如abc变成abc">1.如何把一个字符串的大小写取反？例如：‘Abc’变成‘aBC’</h3>
+<p><strong>解析：</strong> <br />
+首先用<code class="highlighter-rouge">split()</code>方法将字符串分割成数组，再利用for循环遍历数组每一个元素，遍历每一项过程中使用if语句判断当前元素的ACSII码值（使用<code class="highlighter-rouge">charCodeAt()</code>方法可以得到ASCII码值）在大写（小写）的范围内，就使用<code class="highlighter-rouge">toLowerCase()</code>方法（<code class="highlighter-rouge">toUpperCase()</code>方法）转换成小写（大写），并把所得的值保存起来，遍历完最后一项后退出for循环，并将数组用<code class="highlighter-rouge">join()</code>方法合并成字符串返回。</p>
+:ET

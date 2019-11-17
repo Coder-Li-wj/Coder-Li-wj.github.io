@@ -1,0 +1,54 @@
+I"<h3 id="实现一个attrname-value遍历属性为name值为value的元素集合">实现一个attr(name, value)遍历，属性为name，值为value的元素集合</h3>
+
+<p>例如：<code class="highlighter-rouge">let ary = attr('class', 'box');  //获取页面中所有class为box的元素</code></p>
+
+<p><strong>解析：</strong><br />
+该问题要实现的主要功能是构造一个类似属性选择器的函数attr，该函数传入两个参数，第一个参数为一个属性名，第二个参数为属性值。举个例子，就是在当前页面中把所有拥有<code class="highlighter-rouge">class</code>该属性名并且其属性值为<code class="highlighter-rouge">box</code>的标签拿到。<br />
+步骤：</p>
+<blockquote>
+  <p>1.先通过<code class="highlighter-rouge">document.detElementsByTagName('*')</code>获取当前页面的所有标签;<br />
+2.将得到的所有标签通过<code class="highlighter-rouge">Array.from()</code>方法转换成数组；<br />
+3.对该数组进行遍历；<br />
+4.通过<code class="highlighter-rouge">get.Arrtibute()</code>方法获取标签中属性名为property的属性值；<br />
+5.由于’class’属性的属性值可能不止value值一个，所以要把属性名为’class’的情况先提出来处理，把第二个参数value转换成正则表达式，使用<code class="highlighter-rouge">exec()</code>方法判断当前class属性的属性值是否包含value<br />
+6.如果传进来的第一个参数property不等于class，就在直接执行后续代码</p>
+</blockquote>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">attr</span><span class="p">(</span><span class="nx">property</span><span class="p">,</span> <span class="nx">value</span><span class="p">){</span>
+    <span class="kd">let</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="p">)</span><span class="c1">//获取当前页面中的所有标签</span>
+        <span class="nx">arr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="nx">elements</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nx">elements</span><span class="p">);</span><span class="c1">//Array.from()方法就是将一个类数组对象或者可遍历对象转换成一个真正的数组。</span>
+    <span class="nx">elements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">itemValue</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="nx">property</span><span class="p">)</span><span class="c1">//getAttribute()获取指定属性名的值</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">property</span> <span class="o">===</span> <span class="dl">'</span><span class="s1">class</span><span class="dl">'</span><span class="p">){</span>
+            <span class="kd">let</span> <span class="nx">reg</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">"</span><span class="se">\\</span><span class="s2">b</span><span class="dl">"</span><span class="o">+</span><span class="nx">value</span><span class="o">+</span><span class="dl">"</span><span class="se">\\</span><span class="s2">b</span><span class="dl">"</span><span class="p">)</span><span class="c1">//\b代表字与字中间那个看不见的东西,/bdo/b表示do的前后都必须是空格</span>
+            <span class="nx">reg</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">itemValue</span><span class="p">)</span> <span class="p">?</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">:</span> <span class="kc">null</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">itemValue</span> <span class="o">===</span> <span class="nx">value</span><span class="p">){</span><span class="c1">//获取的值和传入的值相同，存入数组arr中</span>
+            <span class="nx">arr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="nx">arr</span>
+<span class="p">}</span>
+<span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">attr</span><span class="p">(</span><span class="dl">'</span><span class="s1">class</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">box</span><span class="dl">'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

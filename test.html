@@ -6,17 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
-    
-    <script type="text/javascript">
-    function a(){
-        let str ="123sdbgkjsbkgjlbsd"
-        for(let i = 0; i<str.length; i ++){
-            console.log(i+':'+str[i])
-            
-        }
+<style>
+    *{
+        margin: 0;
+        padding: 0;
     }
-    a()
+    .box{
+        display: flex;
+        height: 100vh;
+        flex-wrap: wrap;
+        justify-content:center;
+        align-items: center;
+    }
+    .item{
+        height: 200px;
+        width: 200px;
+        background-color: lightpink;
+        border: 2px solid black;
+        flex: 1;
+    }
+</style>
+<body>
+
+    <div class="box">
+        <span class="item">1</span>
+        <span class="item">2</span>
+        <span class="item">3</span>
+        <span class="item">4</span>
+        <span class="item">5</span>
+        <span class="item">6</span>
+        <span class="item">7</span>
+        <span class="item">8</span>
+        <span class="item">9</span>
+        <span class="item">10</span>
+    </div>
+
+
+    <script type="text/javascript">
 
     </script>
 </body>

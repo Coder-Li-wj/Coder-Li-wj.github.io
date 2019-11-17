@@ -1,0 +1,49 @@
+I"&<h3 id="编写一个程序将数组扁平化并去除其中重复部分数据最终得到一个升序且不重复的数组">编写一个程序，将数组扁平化，并去除其中重复部分数据，最终得到一个升序且不重复的数组</h3>
+
+<p><code class="highlighter-rouge">let arr = [[1,2,3],[3,4,5,5],[6,7,8,9,[11,12,[12,12,[14]]]],10]</code></p>
+
+<h4 id="方法一使用es6中提供的arrayflat处理">方法一：使用ES6中提供的Array.flat处理</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">14</span><span class="p">]]]],</span><span class="mi">10</span><span class="p">]</span>
+    <span class="nx">res</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">flat</span><span class="p">(</span><span class="kc">Infinity</span><span class="p">)</span><span class="c1">//使用ES6中提供的Array.prototype.flat处理</span>
+    <span class="nx">res</span> <span class="o">=</span> <span class="p">[...</span><span class="k">new</span> <span class="nb">Set</span><span class="p">(</span><span class="nx">res</span><span class="p">)].</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">-</span><span class="nx">b</span><span class="p">)</span><span class="c1">//基于ES6中的new Set()数组去重</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="方法二把数组直接变成字符串数组tostring后不管你有多少级最后都很好变为以逗号分隔的字符串没有中括号和所谓的层级了相当于直接扁平化了">方法二：把数组直接变成字符串(数组toString()后，不管你有多少级，最后都很好变为以逗号分隔的字符串，没有中括号和所谓的层级了)，相当于直接扁平化了</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">14</span><span class="p">]]]],</span><span class="mi">10</span><span class="p">]</span>
+    <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">,</span><span class="dl">'</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">res</span> <span class="o">=</span> <span class="p">[...</span><span class="k">new</span> <span class="nb">Set</span><span class="p">(</span><span class="nx">res</span><span class="p">)].</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">-</span><span class="nx">b</span><span class="p">)</span><span class="c1">//基于ES6中的new Set()数组去重</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="方法三jsonstringify可以把对象或数组转换为一个json字符串然后通过正则表达式的方法去掉---和-">方法三：JSON.stringify可以把对象或数组转换为一个JSON字符串，然后通过正则表达式的方法去掉 ‘[’  和 ‘]’</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,[</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">,[</span><span class="mi">14</span><span class="p">]]]],</span><span class="mi">10</span><span class="p">]</span>
+    <span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">arr</span><span class="p">)</span><span class="c1">//得到一个JSON字符串</span>
+        <span class="nx">res</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/</span><span class="se">(\[</span><span class="sr">|</span><span class="se">\])</span><span class="sr">/g</span><span class="p">,</span><span class="dl">''</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">,</span><span class="dl">'</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="nx">res</span> <span class="o">=</span> <span class="p">[...</span><span class="k">new</span> <span class="nb">Set</span><span class="p">(</span><span class="nx">res</span><span class="p">)].</span><span class="nx">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="o">-</span><span class="nx">b</span><span class="p">)</span><span class="c1">//基于ES6中的new Set()数组去重</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="方法四基于数组的some方法进行判断检测验证数组中某一项有没有符合函数中提供的规则的some和find方法相似两者的区别是some返回的是booleanfind找到符合规则的返回当前这一项没找到符合规则的返回undefined">方法四：基于数组的some()方法进行判断检测：验证数组中某一项有没有符合函数中提供的规则的(some()和find()方法相似，两者的区别是：some返回的是Boolean，find找到符合规则的，返回当前这一项，没找到符合规则的，返回undefined)</h4>
+:ET
