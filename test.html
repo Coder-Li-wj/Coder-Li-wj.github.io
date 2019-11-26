@@ -11,38 +11,101 @@
         margin: 0;
         padding: 0;
     }
-    .box{
+    .header{
+        background-color: aqua;
+        height: 80px;
+        width: auto;
+    }
+    .footer{
+        background-color:chocolate;
+        height: 80px;
+        width: auto;
+    }
+    .flex-box{
         display: flex;
-        height: 100vh;
-        flex-wrap: wrap;
-        justify-content:center;
-        align-items: center;
+        justify-content: space-between;
+        /* flex: 1; */
     }
-    .item{
-        height: 200px;
-        width: 200px;
+    .left{
+        height: 500px;
+        width: 100px;
+        background-color: crimson;
+        /* flex: 1; */
+    }
+    .right{
+        height: 500px;
+        width: 100px;
+        background-color: darkmagenta;
+        /* flex: 1; */
+    }
+    .center{
+        height: 500px;
+        width: 1000px;
+        /* width: calc(100% - 100px - 100px); */
+        background-color: darkturquoise;
+        position: relative;
+    }
+    .table{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50% , -50%);
+    }
+
+    .box2{
+        height: 150px;
+        width: 1500px;
+        /* margin: */
         background-color: lightpink;
-        border: 2px solid black;
-        flex: 1;
+        margin: 0 auto;
     }
+
 </style>
 <body>
 
     <div class="box">
-        <span class="item">1</span>
-        <span class="item">2</span>
-        <span class="item">3</span>
-        <span class="item">4</span>
-        <span class="item">5</span>
-        <span class="item">6</span>
-        <span class="item">7</span>
-        <span class="item">8</span>
-        <span class="item">9</span>
-        <span class="item">10</span>
+        <div class="header"></div>
+        <div class="flex-box">
+            <div class="left"></div>
+            <div class="center">
+                <table border="1" class="table">
+                    <tr>
+                        <th>num</th>
+                        <th>name</th>
+                        <th>sex</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>mike</td>
+                        <td>fame</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>sarah</td>
+                        <td>female</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>jhon</td>
+                        <td>male</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="right"></div>
+        </div>
+        <div class="footer"></div>
+    </div>
+    <div class="box2">
+
     </div>
 
 
+
     <script type="text/javascript">
+
+　　
+
+
 
     </script>
 </body>

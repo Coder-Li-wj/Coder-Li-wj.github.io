@@ -4,6 +4,7 @@ title:      "My First Blog"
 subtitle:   "我的第一个博客"
 date:       2019-11-03 15:47:00
 author:     "Coder-Li-wj"
+header-img: "img/first-blog-header.jpg"
 tags:
     - Life
 ---

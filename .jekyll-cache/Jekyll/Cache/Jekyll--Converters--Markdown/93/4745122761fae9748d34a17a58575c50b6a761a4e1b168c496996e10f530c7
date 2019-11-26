@@ -1,0 +1,37 @@
+I"y<h2 id="webpack是前端一个项目构建工具它是基于nodejs开发出来的一个前端工具">webpack是前端一个项目构建工具，它是基于Node.js开发出来的一个前端工具。</h2>
+
+<h4 id="一webpack的作用">一、webpack的作用：</h4>
+<blockquote>
+  <p>1.能够处理JS文件的相互依赖关系；<br />
+2.能够处理JS的兼容问题，把高级的浏览器不识别的语法，转为低级的，浏览器能正常识别的语法。</p>
+</blockquote>
+
+<p><strong>webpack.config.js 配置文件</strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">entry</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">_dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">./src/main.js</span><span class="dl">'</span><span class="p">),</span> <span class="c1">//入口，要打包的文件</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">{</span> <span class="c1">//输出文件</span>
+        <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">_dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">/.dist</span><span class="dl">'</span><span class="p">),</span> <span class="c1">//输出的目录</span>
+        <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bundle.js</span><span class="dl">'</span> <span class="c1">//指定输出文件的名称</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="二当在控制台直接输入webpack命令时webpack做出了以下几步">二、当在控制台，直接输入webpack命令时，webpack做出了以下几步：</h4>
+<ol>
+  <li>首先，webpack发现，我们并没有通过命令的形式给它指定入口和出口；</li>
+  <li>webpack就会去项目的根目录中，查找一个叫做<code class="highlighter-rouge">webpack.config.js</code>的配置文件；</li>
+  <li>当找到配置文件后，webpack就会去解析，当解析完配置文件后，就得到了配置文件的中导出的配置对象；</li>
+  <li>当webpack拿到配置对象后，就拿到了配置对象中指定的入口和出口，然后进行打包构建。</li>
+</ol>
+
+<h4 id="三使用webpack-dev-server实现">三、使用<code class="highlighter-rouge">webpack-dev-server</code>实现</h4>
+:ET
