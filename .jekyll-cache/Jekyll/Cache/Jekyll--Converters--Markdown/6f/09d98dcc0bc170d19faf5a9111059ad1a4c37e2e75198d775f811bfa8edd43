@@ -1,0 +1,224 @@
+I"@<h2 id="webpack是前端一个项目构建工具它是基于nodejs开发出来的一个前端工具">webpack是前端一个项目构建工具，它是基于Node.js开发出来的一个前端工具。</h2>
+
+<h4 id="一webpack的作用">一、webpack的作用：</h4>
+<blockquote>
+  <p>1.能够处理JS文件的相互依赖关系；<br />
+2.能够处理JS的兼容问题，把高级的浏览器不识别的语法，转为低级的，浏览器能正常识别的语法。</p>
+</blockquote>
+
+<p><strong>webpack.config.js 配置文件</strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">entry</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">_dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">./src/main.js</span><span class="dl">'</span><span class="p">),</span> <span class="c1">//入口，要打包的文件</span>
+    <span class="na">output</span><span class="p">:</span> <span class="p">{</span> <span class="c1">//输出文件</span>
+        <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">_dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">/.dist</span><span class="dl">'</span><span class="p">),</span> <span class="c1">//输出的目录</span>
+        <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bundle.js</span><span class="dl">'</span> <span class="c1">//指定输出文件的名称</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="二当在控制台直接输入webpack命令时webpack做出了以下几步">二、当在控制台，直接输入webpack命令时，webpack做出了以下几步：</h4>
+<ol>
+  <li>首先，webpack发现，我们并没有通过命令的形式给它指定入口和出口；</li>
+  <li>webpack就会去项目的根目录中，查找一个叫做<code class="highlighter-rouge">webpack.config.js</code>的配置文件；</li>
+  <li>当找到配置文件后，webpack就会去解析，当解析完配置文件后，就得到了配置文件的中导出的配置对象；</li>
+  <li>当webpack拿到配置对象后，就拿到了配置对象中指定的入口和出口，然后进行打包构建。</li>
+</ol>
+
+<h4 id="三使用webpack-dev-server实现自动打包编译功能">三、使用<code class="highlighter-rouge">webpack-dev-server</code>实现自动打包编译功能</h4>
+<ol>
+  <li>运行<code class="highlighter-rouge">npm install webpack-dev-server -D</code>把这个工具安装到项目的本地开发依赖；</li>
+  <li>这个工具的用法和webpack用法一样；</li>
+  <li>由于我们本地安装<code class="highlighter-rouge">webpack-dev-server</code>，所以无法把它当作脚本命令在终端运行；（只有那些安装到全局-g的工具才能在终端中运行）</li>
+  <li>如果要正常运行这个工具，要求在本地中，必须安装webpack；</li>
+  <li>这个工具帮我们打包生成<code class="highlighter-rouge">bundle.js</code>文件并没有放到实际的物理磁盘上；而是直接托管到了电脑的内存中，所以，在项目根目录中找不到打包好的<code class="highlighter-rouge">bundle.js</code>。</li>
+</ol>
+
+<h4 id="四html-webpack-plugin">四、html-webpack-plugin</h4>
+<p>当使用<code class="highlighter-rouge">html-webpack-plugin</code>之后，我们不再需要手动处理bundle.js的引用路径了，因为这个插件，已经帮助我们自动创建一个合适的<code class="highlighter-rouge">script</code>，并且，引用了正确路径。</p>
+<blockquote>
+  <p>两个作用：</p>
+  <blockquote>
+    <ol>
+      <li>自动在内存中根据指定页面生成一个内存的页面；</li>
+      <li>自动把打包好的<code class="highlighter-rouge">bundle.js</code>追加到页面中去。</li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<h4 id="五loader">五、loader</h4>
+<blockquote>
+  <p>PS：webpack默认只能打包处理JS类型的文件，无法处理其他非JS类型文件<br />
+例如：import ‘./css/index.css’ 会报错</p>
+</blockquote>
+
+<p><strong>因此要如果要处理非JS类型文件，我们需要手动安装一些合适的第三方<code class="highlighter-rouge">loader加载器</code></strong></p>
+
+<ol>
+  <li>需要装两个第三方loader：<code class="highlighter-rouge">cnpm i style-loader css-loader -D</code>；</li>
+  <li>打开<code class="highlighter-rouge">webpack.config.js</code>这个配置文件，在里面新增一个配置节点，叫做<code class="highlighter-rouge">module</code>，它是一个对象；在这个<code class="highlighter-rouge">module</code>对象身上，有个<code class="highlighter-rouge">rules</code>属性，这个<code class="highlighter-rouge">rules</code>是个数组；在这个数组中存放了所有第三方文件的匹配和处理规则；
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">module</span><span class="p">:{</span>
+ <span class="nl">rules</span><span class="p">:[</span>
+     <span class="p">{</span>
+         <span class="na">test</span><span class="p">:</span><span class="sr">/</span><span class="se">\.</span><span class="sr">css$/</span><span class="p">,</span><span class="na">use</span><span class="p">:[</span><span class="dl">'</span><span class="s1">style-loader</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">css-loader</span><span class="dl">'</span><span class="p">]</span>
+     <span class="p">}</span>
+ <span class="p">]</span> <span class="c1">//配置处理.css文件的第三方loader规则</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<blockquote>
+  <p>PS:webpack处理第三方文件类型过程：</p>
+  <ol>
+    <li>发现要处理的文件不是JS类型文件，然后就去配置文件中，查找有没有对应的第三方loader规则；</li>
+    <li>如果找到对应的规则，就会调用对应的loader来处理这些文件类型；</li>
+    <li>在调用loader时，是从后往前调用的；</li>
+    <li>当最后一个loader调用完毕，会把处理的结果，直接交给webpack进行打包合并，最终输出到<code class="highlighter-rouge">bundle.js</code>中去</li>
+  </ol>
+</blockquote>
+
+<h5 id="url-loader">url-loader</h5>
+<p>默认情况下，webpack无法处理css文件中的url地址。需要：<br />
+安装url-loader:<code class="highlighter-rouge">cnpm i url-loader file-loader</code>; 然后在配置文件上配置。</p>
+
+<h4 id="六babel">六、babel</h4>
+<p>在webpack中默认只能处理一部分ES6的新语法，一些更高级或ES7语法处理不了；这是需要借助第三方<code class="highlighter-rouge">babel</code>来帮助webpack来处理这些高级语法，当第三方<code class="highlighter-rouge">babel</code>把高级语法转为低级语法之后，会把结果交给webpack去打包到<code class="highlighter-rouge">bundle.js</code>中</p>
+<ol>
+  <li>在webpack中，运行两套命令，安装两套包，去安装babel相关的loader功能；
+    <blockquote>
+      <p>第一套包：<code class="highlighter-rouge">cnpm i babel-core babel-loader babel-plugin-transform-runtime -D</code><br />
+第二套包：<code class="highlighter-rouge">cnpm i babel-preset-env babel-preset-stage-0 -D</code></p>
+    </blockquote>
+  </li>
+  <li>打开webpack的配置文件<code class="highlighter-rouge">webpack.config.js</code>，在<code class="highlighter-rouge">module</code>节点下的rules数组中，添加一个新的匹配规则：
+<code class="highlighter-rouge">{test: /\.js$/, use: 'babel-loader', exclude: /node_modules/}</code>
+    <blockquote>
+      <p>PS：必须把<code class="highlighter-rouge">node_modules</code>目录通过exclude选项排除掉</p>
+    </blockquote>
+  </li>
+  <li>在项目的根目录中，新建一个叫<code class="highlighter-rouge">.babelrc</code>的babel配置文件，这个配置文件，属于JSON格式，所以，在写配置时必须符合JSON语法规范；
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">//配置如下：</span>
+<span class="p">{</span>
+ <span class="dl">"</span><span class="s2">presets</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">env</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">stage-0</span><span class="dl">"</span><span class="p">],</span>
+ <span class="dl">"</span><span class="s2">plugins</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">transform-runtime</span><span class="dl">"</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="七使用vue实例的render方法渲染组件">七、使用vue实例的render方法渲染组件</h4>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">createElements</span><span class="p">){</span>
+    <span class="c1">//这里createElements是一个方法，调用它，能够把指定的组件模板渲染为html结构</span>
+    <span class="k">return</span> <span class="nx">createElements</span><span class="p">(</span><span class="nx">login</span><span class="p">)</span>
+    <span class="c1">//注意：这里return的结果，会替换页面中el指定的那个容器（也就是&lt;div id="#app"&gt;&lt;/div&gt;）</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>PS：在webpack中，如果想要通过vue，把一个组件放到页面中显示，vm实例中的<code class="highlighter-rouge">render</code>可以实现</strong></p>
+
+<h4 id="八webpack中如何使用vue">八、webpack中如何使用vue：</h4>
+<ol>
+  <li>安装vue的包：<code class="highlighter-rouge">cnpm i vue -S</code>；</li>
+  <li>由于在webpack中，推荐使用<code class="highlighter-rouge">.vue</code>这个组件模板文件定义组件，所以需要安装能解析这种文件的<code class="highlighter-rouge">loader</code>：<code class="highlighter-rouge">cnpm i vue-loader vue-template-compiler -D</code>，然后在配置文件<code class="highlighter-rouge">webpack.config.js</code>中，新建loader配置项：<code class="highlighter-rouge">{test:/\.vue$/, use: 'vue-loader'}</code>；</li>
+  <li>在<code class="highlighter-rouge">main.js</code>中，导入vue模块<code class="highlighter-rouge">import Vue from 'vue'</code>；</li>
+  <li>定义一个<code class="highlighter-rouge">.vue</code>结尾的组件；</li>
+  <li>在<code class="highlighter-rouge">main.js</code>中使用<code class="highlighter-rouge">import login from './login.vue'</code>导入这个组件；</li>
+  <li>创建vm实例<code class="highlighter-rouge">var vm = new Vue({el:'#app", render: c =&gt; c(login)})</code>；</li>
+  <li>在页面中创建id为app的容器。</li>
+</ol>
+
+<blockquote>
+  <p>PS:使用<code class="highlighter-rouge">import Vue from 'vue'</code>导入的Vue构造函数，功能不完整，只提供了<code class="highlighter-rouge">runtime-only</code>的方式，并没有提供先网页中那样的使用方式。</p>
+</blockquote>
+
+<blockquote>
+  <p>解决方法：在<code class="highlighter-rouge">webpack.config.js</code>配置文件上，加上如下配置：</p>
+  <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nx">resolve</span><span class="p">:{</span>
+    <span class="nl">alias</span><span class="p">:</span> <span class="p">{</span><span class="c1">//修改vue被导入时包的路径</span>
+        <span class="dl">"</span><span class="s2">vue$': </span><span class="dl">"</span><span class="nx">vue</span><span class="o">/</span><span class="nx">dist</span><span class="o">/</span><span class="nx">vue</span><span class="p">.</span><span class="nx">js</span><span class="dl">"</span><span class="s2">
+    }
+}
+</span></pre></td></tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<h4 id="九结合webpack使用vue-router">九、结合webpack使用vue-router</h4>
+<ol>
+  <li>导入<code class="highlighter-rouge">vue-router</code>包：<code class="highlighter-rouge">import VueRouter from 'vue-router'</code></li>
+  <li>手动安装VueRouter：<code class="highlighter-rouge">Vue.use(VueRouter)</code></li>
+  <li>创建路由对象
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VueRouter</span><span class="p">({</span>
+ <span class="na">routes</span><span class="p">:[......]</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>将路由对象挂载到vm实例上</li>
+</ol>
+
+<h4 id="十export-default-和-export使用方法">十、export default 和 export使用方法</h4>
+<p><strong>export default</strong></p>
+<ol>
+  <li>向外暴露成员，可以用任意变量接收
+    <blockquote>
+      <p>eg：<code class="highlighter-rouge">var info = {name: "Mike"}; export default info;</code><br />
+接收：<code class="highlighter-rouge">import aaa(任意名) from './...'</code></p>
+    </blockquote>
+  </li>
+  <li>在一个模块中，<code class="highlighter-rouge">export default</code>只允许向外暴露一次</li>
+  <li>在一个模块中，可以同时使用<code class="highlighter-rouge">export default</code>和<code class="highlighter-rouge">export</code></li>
+</ol>
+
+<p><strong>export</strong></p>
+<ol>
+  <li>使用<code class="highlighter-rouge">export</code>向外暴露成员，只能使用{ }的形式接收，这种形式叫做[按需导出]；
+    <blockquote>
+      <p>eg：<code class="highlighter-rouge">export var name = 'Mike'</code>
+接收：<code class="highlighter-rouge">import {name} from './...'</code></p>
+    </blockquote>
+  </li>
+  <li><code class="highlighter-rouge">export</code>可以向外暴露多个成员，（也就是说可以使用多次）；</li>
+  <li><code class="highlighter-rouge">export</code>导出成员时，必须用导出时的名称，来使用{ }按需接收；</li>
+  <li>如果想换个名称接收，可以使用<code class="highlighter-rouge">as</code>来起别名；
+    <blockquote>
+      <p>eg:<code class="highlighter-rouge">import {name as changeName} from './...'</code></p>
+    </blockquote>
+  </li>
+</ol>
+
+:ET

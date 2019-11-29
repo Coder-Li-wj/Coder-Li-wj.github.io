@@ -1,0 +1,64 @@
+I"<<h2 id="单页面的状态管理">单页面的状态管理</h2>
+<p><img src="/img/vue/single-page.jpg" alt="单页面状态管理" />
+State：状态；<br />
+View：视图层，可以针对State的变化显示不同信息；<br />
+Actions：主要是用户的各种操作：点击、输入等，会导致State的变化；</p>
+
+<h2 id="多页面的状态管理">多页面的状态管理</h2>
+<p><img src="/img/vue/more-page.jpg" alt="多页面状态管理" /></p>
+<ol>
+  <li>多个视图都依赖同一个状态；</li>
+  <li>不同页面的Actions都想修改同一个状态。</li>
+</ol>
+
+<p><strong>全局单例模式：将共享的状态抽取出来，交给vuex进行统一管理；然后每个视图按照规定好的规则，进行访问和修改等操作。</strong></p>
+
+<h2 id="简单使用vuex">简单使用Vuex</h2>
+<ol>
+  <li>提取出一个公共的store对象，用于保存在多个组件中共享的状态；</li>
+  <li>将store对象放置在new Vue对象中，这样可以保证在所有的组件中都可以使用到；</li>
+  <li>在其他组件中使用store对象中保存的状态：
+    <blockquote>
+      <p>a. 通过<code class="highlighter-rouge">this.$store.state</code>属性来访问状态<br />
+b. 通过<code class="highlighter-rouge">this.$store.commit('mutation中的方法')</code>来修改状态</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>eg：在项目中<code class="highlighter-rouge">src</code>文件下新建<code class="highlighter-rouge">store文件</code>，然后在<code class="highlighter-rouge">store文件</code>中新建一个<code class="highlighter-rouge">__.js文件</code>；通过<code class="highlighter-rouge">npm install Vuex -S</code>安装vuex，在<code class="highlighter-rouge">main.js文件</code>上导入：<code class="highlighter-rouge">import store from './store'</code>；然后在<code class="highlighter-rouge">store文件</code>上的<code class="highlighter-rouge">__.js文件</code>上导入Vue和Vuex：<code class="highlighter-rouge">import Vue from 'vue'</code>和<code class="highlighter-rouge">import Vuex from 'vuex'</code>，然后在使用<code class="highlighter-rouge">Vue.use(Vuex)</code>，最后创建实例：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">bew</span> <span class="nx">Vuex</span><span class="p">.</span><span class="nx">useStore</span><span class="p">({</span>
+    <span class="na">state</span><span class="p">:{},</span>
+    <span class="na">mutations</span><span class="p">:{},</span>
+    <span class="na">actions</span><span class="p">:{},</span>
+    <span class="na">getters</span><span class="p">:{},</span>
+    <span class="na">modules</span><span class="p">:{}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="一getters">一、getters</h4>
+<p>getters相当于计算属性，对state中的数据进行处理如过滤等，并返回新数据</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">getters</span><span class="p">:{</span>
+    <span class="nx">powCounter</span><span class="p">(</span><span class="nx">State</span><span class="p">){</span><span class="c1">//计算state中counter的平方</span>
+        <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span> <span class="o">*</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+<span class="c1">//然后在其他组件中使用safkj</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>然后在其他组件中``使用</p>
+
+:ET
