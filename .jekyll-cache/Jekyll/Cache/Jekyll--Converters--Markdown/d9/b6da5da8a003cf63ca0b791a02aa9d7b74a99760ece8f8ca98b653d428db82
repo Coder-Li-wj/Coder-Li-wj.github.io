@@ -1,0 +1,41 @@
+I"O<h4 id="ajax异步js和xml">ajax：异步JS和XML</h4>
+<p>使用ajax技术的网页，通过在后台服务器进行少量数据交换，就可以实现异步局部更新</p>
+
+<p>XMLHttpRequest对象是浏览器提供的一个API，用来向服务器发送请求并解析服务器回应。</p>
+
+<p>XMLHTTPRequest只是一个JavaScript对象，确切的说，是一个构造函数。它是特殊之处在于它是由客户端（即浏览器）提供的，而不是JavaScript原生的，除此之外，它有属性，有方法，需要通过<code class="highlighter-rouge">new</code>关键字进行实例化。</p>
+
+<p><strong>XMLHTTPRequest实例的方法和属性</strong>
+<code class="highlighter-rouge">.open()</code>方法接收三个参数：请求方式，请求URL地址和是否为异步请求的布尔值。</p>
+
+<p><code class="highlighter-rouge">.send()</code>方法的参数不可为空，也就是说，对于不需要发送任何数据的GET请求，也需要在调用<code class="highlighter-rouge">.send()</code>方法时，向其传入<code class="highlighter-rouge">null</code>值；而POST请求发送的数据会作为<code class="highlighter-rouge">.send</code>方法的参数。</p>
+
+<p>xhr实例中的<code class="highlighter-rouge">readstatechange</code>事件会监听<code class="highlighter-rouge">xhr.readystate</code>属性的变化，且当<code class="highlighter-rouge">xhr.readystate == 4</code>时，表示已接收到全部响应数据。</p>
+
+<p><strong>一个异步的GET的请求：</strong></p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">()</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">readystate</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">((</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">&gt;=</span> <span class="mi">200</span> <span class="o">&amp;&amp;</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">&lt;</span> <span class="mi">300</span><span class="p">)</span> <span class="o">||</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span> <span class="o">==</span> <span class="mi">304</span><span class="p">){</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">)</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Request was unsuccessful:</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">get</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">url</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

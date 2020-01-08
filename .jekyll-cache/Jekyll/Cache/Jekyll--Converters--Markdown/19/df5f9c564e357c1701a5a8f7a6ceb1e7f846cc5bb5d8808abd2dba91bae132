@@ -1,0 +1,210 @@
+I"9<h2 id="单页面的状态管理">单页面的状态管理</h2>
+<p><img src="/img/vue/single-page.jpg" alt="单页面状态管理" />
+State：状态；<br />
+View：视图层，可以针对State的变化显示不同信息；<br />
+Actions：主要是用户的各种操作：点击、输入等，会导致State的变化；</p>
+
+<h2 id="多页面的状态管理">多页面的状态管理</h2>
+<p><img src="/img/vue/more-page.jpg" alt="多页面状态管理" /></p>
+<ol>
+  <li>多个视图都依赖同一个状态；</li>
+  <li>不同页面的Actions都想修改同一个状态。</li>
+</ol>
+
+<p><strong>全局单例模式：将共享的状态抽取出来，交给vuex进行统一管理；然后每个视图按照规定好的规则，进行访问和修改等操作。</strong></p>
+
+<h2 id="简单使用vuex">简单使用Vuex</h2>
+<ol>
+  <li>提取出一个公共的store对象，用于保存在多个组件中共享的状态；</li>
+  <li>将store对象放置在new Vue对象中，这样可以保证在所有的组件中都可以使用到；</li>
+  <li>在其他组件中使用store对象中保存的状态：
+    <blockquote>
+      <p>a. 通过<code class="highlighter-rouge">this.$store.state</code>属性来访问状态<br />
+b. 通过<code class="highlighter-rouge">this.$store.commit('mutation中的方法')</code>来修改状态</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>eg：在项目中<code class="highlighter-rouge">src</code>文件下新建<code class="highlighter-rouge">store文件</code>，然后在<code class="highlighter-rouge">store文件</code>中新建一个<code class="highlighter-rouge">__.js文件</code>；通过<code class="highlighter-rouge">npm install Vuex -S</code>安装vuex，在<code class="highlighter-rouge">main.js文件</code>上导入：<code class="highlighter-rouge">import store from './store'</code>；然后在<code class="highlighter-rouge">store文件</code>上的<code class="highlighter-rouge">__.js文件</code>上导入Vue和Vuex：<code class="highlighter-rouge">import Vue from 'vue'</code>和<code class="highlighter-rouge">import Vuex from 'vuex'</code>，然后在使用<code class="highlighter-rouge">Vue.use(Vuex)</code>，最后创建实例：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">bew</span> <span class="nx">Vuex</span><span class="p">.</span><span class="nx">useStore</span><span class="p">({</span>
+    <span class="na">state</span><span class="p">:{},</span>
+    <span class="na">mutations</span><span class="p">:{},</span>
+    <span class="na">actions</span><span class="p">:{},</span>
+    <span class="na">getters</span><span class="p">:{},</span>
+    <span class="na">modules</span><span class="p">:{}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="一getters">一、getters</h3>
+<p>getters相当于计算属性，对state中的数据进行处理如过滤等，并返回新数据</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">getters</span><span class="p">:{</span>
+    <span class="nx">powCounter</span><span class="p">(</span><span class="nx">State</span><span class="p">){</span><span class="c1">//计算state中counter的平方</span>
+        <span class="k">return</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span> <span class="o">*</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+<span class="c1">//然后在其他组件中{ { $store.getters.powCounter } }</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>然后在其他组件中<code class="highlighter-rouge">{ { $store.getters.powCounter } }</code></p>
+
+<h6 id="getters作为参数和传递参数">getters作为参数和传递参数</h6>
+<p>例如上例中如果要计算counter的三次方</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">newCounter</span><span class="p">(</span><span class="nx">State</span><span class="p">,</span> <span class="nx">getters</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">getter</span><span class="p">.</span><span class="nx">powCounter</span> <span class="o">*</span> <span class="nx">state</span><span class="p">.</span><span class="nx">counter</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="利用mapgetters辅助函数将getter映射到局部计算属性">利用mapGetters辅助函数将getter映射到局部计算属性</h6>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">mapGetters</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+<span class="c1">//方法一：使用对象展开运算符，将getter混入computed对象中  </span>
+<span class="nx">computed</span><span class="p">:{...</span><span class="nx">mapGetters</span><span class="p">([</span><span class="dl">'</span><span class="s1">cartLength</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">,...])}</span>
+<span class="c1">//方法二：将getter属性另取一个名字，使用对象形式：</span>
+<span class="nl">computed</span><span class="p">:{...</span><span class="nx">mapGetters</span><span class="p">({</span><span class="na">len</span><span class="p">:</span><span class="dl">'</span><span class="s1">cartLength</span><span class="dl">'</span><span class="p">,</span> <span class="p">...})}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="二mutations">二、mutations</h3>
+
+<p><strong>vuex的state的更新唯一方式：提交mutation</strong> <br />
+mutation主要包括两部分：</p>
+<blockquote>
+  <ol>
+    <li>字符串的事件类型；</li>
+    <li>一个回调函数，该回调函数的第一个参数为state</li>
+  </ol>
+</blockquote>
+
+<p>mutation的定义方式：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">mutation</span><span class="p">:{</span>
+    <span class="nx">add</span><span class="p">(</span><span class="nx">state</span><span class="p">){</span>
+        <span class="nx">state</span><span class="p">.</span><span class="nx">count</span><span class="o">++</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>在组件methods中通过mutation更新：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">add</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">add)
+}
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>mutation传参</strong><br />
+参数被称为是mutation的载荷（payload)</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">decrement</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span><span class="nx">n</span><span class="p">){</span>
+    <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">-=</span> <span class="nx">n</span>
+<span class="p">}</span>
+<span class="nx">decrement</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">decrement</span><span class="dl">'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>如果参数不唯一，可以通过对象的形式传递，然后可以从对象中取相关信息eg:  <code class="highlighter-rouge">obj.对象中的属性名</code></p>
+
+<p><strong>mutation提交风格</strong></p>
+<ol>
+  <li>普通：<code class="highlighter-rouge">this.$store.commit('addCount', count)</code></li>
+  <li>特殊：
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">commit</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="dl">'</span><span class="s1">addCount</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">count</span><span class="p">:</span><span class="nx">count</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>特殊风格中mutation上的处理方式是将整个<code class="highlighter-rouge">commit</code>的对象作为<code class="highlighter-rouge">payload</code>使用</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="nx">addCount</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="nx">payload</span><span class="p">){</span><span class="c1">//此处payload是一个对象</span>
+    <span class="nx">state</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="nx">payload</span><span class="p">.</span><span class="nx">count</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>响应式方法：</p>
+<ol>
+  <li><code class="highlighter-rouge">Vue.set(修改的东西, string/number, '值')</code>
+eg：<code class="highlighter-rouge">Vue.set(state.info, 'sex', 'fame')</code></li>
+  <li><code class="highlighter-rouge">Vue.delete( , )</code></li>
+</ol>
+
+<p><strong>Vuex要求mutation中的方法必须是同步方法，如果是异步操作，<code class="highlighter-rouge">devtools</code>将不能追踪这个操作的变化</strong></p>
+
+<h3 id="三action">三、Action</h3>
+<p>Action类似于mutation，可以用来替代mutation进行异步操作（即异步操作时，先在<code class="highlighter-rouge">methods</code>中<code class="highlighter-rouge">dispatch</code>给action，然后action再<code class="highlighter-rouge">commit</code>给mutation）</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:组件中的methods的方法</span>
+<span class="nx">update</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$store</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">(</span><span class="dl">'</span><span class="s1">actionUpdate</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">//action中的异步操作：</span>
+<span class="nx">actionUpdate</span><span class="p">(</span><span class="nx">context</span><span class="p">){</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">context</span><span class="p">.</span><span class="nx">commit</span><span class="p">(</span><span class="dl">'</span><span class="s1">update</span><span class="dl">'</span><span class="p">)</span>
+    <span class="p">},</span><span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">//mutation中的方法：</span>
+<span class="nx">update</span><span class="p">(</span><span class="nx">state</span><span class="p">){</span>
+    <span class="nx">Vue</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">state</span><span class="p">.</span><span class="nx">person</span><span class="p">,</span> <span class="dl">'</span><span class="s1">name</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">Martin</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="四module">四、module</h3>
+<p>当应用变得复杂时，store对象就有可能变得相当臃肿，这时，Vuex允许将store分割成模块（Module），而每个模块拥有自己的<code class="highlighter-rouge">store</code>、<code class="highlighter-rouge">mutations</code>、<code class="highlighter-rouge">actions</code>、<code class="highlighter-rouge">getters</code>等</p>
+:ET

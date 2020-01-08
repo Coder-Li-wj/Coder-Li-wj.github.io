@@ -13,7 +13,8 @@ tags:       MarkDown
 Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：  
 1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令  
 2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】  
-PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览效果
+PS:在Vscode中编写markdown文件时也可以通过**ctrl+shift+v**来预览效果。  
+另外运行项目预览的指令：**jekyll serve --watch**
 
 ### 标题  
 

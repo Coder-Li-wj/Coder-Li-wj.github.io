@@ -1,6 +1,0 @@
-I"F<h2 id="单页面的状态管理">单页面的状态管理</h2>
-<p><img src="/img/vue/single-page.jpg" alt="单页面状态管理" />
-State：状态；<br />
-View：视图层，可以针对State的变化显示不同信息；<br />
-Actions：主要是用户的各种操作：点击、输入等，会导致State的变化；</p>
-:ET

@@ -1,0 +1,15 @@
+I"<p>安装：<code class="highlighter-rouge">npm install axios --save</code><br />
+基本使用：</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nx">axios</span><span class="p">({</span>
+    <span class="na">url</span><span class="p">:</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">methods</span><span class="p">:</span><span class="dl">'</span><span class="s1"> </span><span class="dl">'</span><span class="c1">//可以在method上指定是什么请求，默认是get请求</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>发送并发请求   <code class="highlighter-rouge">axios.all()</code><br />
+eg：<code class="highlighter-rouge">axiso.all([axios(), axios()]).then()</code><br />
+其中<code class="highlighter-rouge">axios.all()</code>返回的结果是一个数组，可以使用<code class="highlighter-rouge">axios.spread</code>将数组<code class="highlighter-rouge">[res1, res2]</code>展开为<code class="highlighter-rouge">res1,res2</code>，即<code class="highlighter-rouge">.then(axios.spread((res1, res2) =&gt; { } ))</code></p>
+:ET
