@@ -1,0 +1,26 @@
+I"�<h3 id="一includes">一、includes()</h3>
+<p><strong>判断字符串中是否包含指定的字符串（包含的话返回true，否则返回false）</strong><br />
+<strong>第一个参数：匹配的字符串；</strong><br />
+<strong>第二个参数：从第几个字符开始匹配</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello world</span><span class="dl">"</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">))</span><span class="c1">//结果：true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">hello world</span><span class="dl">"</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="dl">"</span><span class="s2">world</span><span class="dl">"</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span><span class="c1">//结果：false</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="二startswith">二、startsWith()</h3>
+<p><strong>判断字符串是否以特定的字符串开始</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">admin/index.js</span><span class="dl">'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="dl">'</span><span class="s1">admin</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="三endswith">三、endsWith()</h3>
+<p><strong>判断字符串是否以特定的字符串开始</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">url</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">admin/index.js</span><span class="dl">'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">(</span><span class="dl">'</span><span class="s1">js</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：false</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

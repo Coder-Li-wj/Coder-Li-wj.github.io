@@ -1,0 +1,36 @@
+I"w	<h6 id="箭头函数相当于匿名函数并且简化了函数定义">箭头函数相当于匿名函数，并且简化了函数定义。</h6>
+<p>箭头函数有两种格式，一种只包含一个表达式，连<code class="highlighter-rouge">{ ... }</code>和<code class="highlighter-rouge">return</code>都省略掉了。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="nx">x</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="c1">//相当于</span>
+<span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>另一种可以包含多条语句，这时候就不能省略<code class="highlighter-rouge">{ ... }</code>和<code class="highlighter-rouge">return</code>。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nx">x</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>PS：如果参数不是一个，就需要用括号<code class="highlighter-rouge">()</code>括起来</strong><br />
+```js
+// 两个参数:
+(x, y) =&gt; x * x + y * y</p>
+:ET

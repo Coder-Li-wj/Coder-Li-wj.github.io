@@ -1,0 +1,111 @@
+I"�$<h3 id="箭头函数相当于匿名函数并且简化了函数定义">箭头函数相当于匿名函数，并且简化了函数定义。</h3>
+<p>箭头函数有两种格式，一种只包含一个表达式，连<code class="highlighter-rouge">{ ... }</code>和<code class="highlighter-rouge">return</code>都省略掉了。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre> <span class="nx">x</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span>
+<span class="c1">//相当于</span>
+<span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>另一种可以包含多条语句，这时候就不能省略<code class="highlighter-rouge">{ ... }</code>和<code class="highlighter-rouge">return</code>。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nx">x</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">-</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>PS：如果参数不是一个，就需要用括号<code class="highlighter-rouge">()</code>括起来</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="c1">// 两个参数:</span>
+<span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span> <span class="o">*</span> <span class="nx">y</span>
+
+<span class="c1">// 无参数:</span>
+<span class="p">()</span> <span class="o">=&gt;</span> <span class="mf">3.14</span>
+
+<span class="c1">// 可变参数:</span>
+<span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">,</span> <span class="p">...</span><span class="nx">rest</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">sum</span> <span class="o">=</span> <span class="nx">x</span> <span class="o">+</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">rest</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">rest</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>PS：如果要返回一个对象，就要注意，如果是单表达式，这么写的话会报错：</strong>  <code class="highlighter-rouge">x =&gt; { foo: x }// SyntaxError</code>，<strong>因为和函数体的{ … }有语法冲突，所以要改为：</strong><code class="highlighter-rouge">x =&gt; ({ foo: x })</code></p>
+
+<h3 id="箭头函数的注意事项">箭头函数的注意事项：</h3>
+<h6 id="1-箭头函数体内的this对象就是定义时所在的对象而不是使用时所在的对象">1. 箭头函数体内的this对象就是定义时所在的对象，而不是使用时所在的对象。</h6>
+<p>this指向的固定化并不是因为箭头函数内部有绑定的this的机制，实际原因是箭头函数根本没有自己的this，这样就相当于箭头函数的this是在函数声明的时候就确定了。正式因为它没有this，所以不能用作构造函数。<br />
+<strong>PS:由于箭头函数没有自己的this,所以也就不能用call()、apply()、bind().</strong></p>
+
+<h6 id="2不可以当做构造函数也就是说不可以使用new命令否则会抛出一个错误">2.不可以当做构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</h6>
+<p>new的过程其实就是创建一个对象，将this指向该对象，然后执行代码初始化这个对象，最后返回。然而箭头函数压根就没有this，所以当然不能作为构造函数。</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="c1">// Uncaught TypeError: Person is not a constructor</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="dl">'</span><span class="s1">Jack</span><span class="dl">'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="3不可以使用arguments对象该对象在函数体内不存在如果要用可以使用rest参数代替">3.不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以使用rest参数代替。</h6>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span> <span class="c1">// Uncaught ReferenceError: arguments is not defined</span>
+    <span class="p">};</span>
+<span class="nx">foo</span><span class="p">();</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>使用es6的另一个新特性rest参数，完美替代arguments</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span> <span class="c1">// [1, 2, 3]</span>
+    <span class="p">};</span>
+<span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="4不可以使用yield命令因此箭头函数不能用作genertor函数">4.不可以使用yield命令，因此箭头函数不能用作Genertor函数。</h6>
+
+<h3 id="箭头函数不适用的场景">箭头函数不适用的场景：</h3>
+<ol>
+  <li>作为对象属性</li>
+  <li>作为构造函数</li>
+  <li>作为原型方法</li>
+  <li>需要动态this的时候</li>
+</ol>
+:ET
