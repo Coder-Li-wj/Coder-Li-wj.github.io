@@ -1,0 +1,84 @@
+I"�
+<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
+<ol>
+  <li>命名冲突</li>
+  <li>文件依赖</li>
+</ol>
+
+<h4 id="前端标准的模块化规范">前端标准的模块化规范：</h4>
+<ol>
+  <li>AMD - requirejs</li>
+  <li>CMD - seajs</li>
+</ol>
+
+<h4 id="服务器端的模块化规范">服务器端的模块化规范：</h4>
+<ol>
+  <li>CommonJs - Node.js</li>
+</ol>
+
+<p><strong>前端模块化规范和服务器端模块化规范的不同之处主要在：<code class="highlighter-rouge">文件加载</code>。<br />
+对于前端的模块化：要加载js文件要从服务器端经过网络传输到浏览器端（一般是异步）；<br />
+对于服务器端的模块化：js文件本来在服务器中，它的加载只需从磁盘加载到内存（同步）。</strong></p>
+
+<h4 id="模块化相关的规则">模块化相关的规则：</h4>
+<ol>
+  <li>如何定义模块化：一个js文件就是一个模块化，模块内部的成员都是互相独立；</li>
+  <li>模块成员的导出和引入：<br />
+<strong>导出模块成员的两种方式：exports和module.exports，还有一个是global（不常用）</strong><br />
+```javascript
+// 方法一：exports
+var sum = function(a, b){
+ return parseInt(a) + parseInt(b)
+}
+// 导出模块成员
+exports.sum = sum;</li>
+</ol>
+
+<p>// 在另一个js文件中引入并使用
+var module = require(‘路径’)//已经加载的模块会缓存，即使require多次也只有第一次有用
+var result = module.sum(1 + 1)</p>
+
+<p>// 方法二：module.exports
+var sum = function(a, b){
+    return parseInt(a) + parseInt(b)
+}
+// 导出模块成员
+module.exports = sum;</p>
+
+<p>// 在另一个js文件中引入并使用
+var module = require(‘路径’)
+var result = module(1 + 1)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre>
+#### 模块文件后缀的3中情况：.js .json .node  
+```javascript
+function a(){
+        let str = "Hello World! 你好，世界！"
+        let len = str.length
+            str = str.split('') //将字符串拆分为数组
+        for(let i = 0; i &lt; len; i++){
+            if (str[i].charCodeAt() &gt;= 65 &amp;&amp; str[i].charCodeAt() &lt;= 90){
+                str[i] = str[i].toLowerCase()
+            }else if(str[i].charCodeAt() &gt;= 97 &amp;&amp; str[i].charCodeAt() &lt;= 122) {
+                str[i] = str[i].toUpperCase()
+            }
+        }
+        return str.join('') //将数组合并成字符串
+    }
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

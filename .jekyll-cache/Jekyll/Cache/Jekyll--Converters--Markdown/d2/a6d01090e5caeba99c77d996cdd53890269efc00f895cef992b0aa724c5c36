@@ -1,10 +1,11 @@
-I"�<h2 id="vscode使用markdown文档编写">vscode使用Markdown文档编写</h2>
+I"�<h2 id="vscode使用markdown文档编写">vscode使用Markdown文档编写</h2>
 
 <p>可以新建一个&amp;nbsp.md文件<br />
 Visual Studio Code 原生就支持高亮Markdown的语法，想要一边编辑一遍预览，有两种方法：<br />
 1.Ctrl + Shift + P 调出主命令框，  输入 Markdown，应该会匹配到几项 Markdown相关命令<br />
 2.先按Ctrl + K，然后放掉，紧接着再按 v，也能调出实时预览框。【要在英文输入状态下】<br />
-PS:在Vscode中编写markdown文件时也可以通过<strong>ctrl+shift+v</strong>来预览效果，运行项目预览的指令：<strong>jekyll serve –watch</strong></p>
+PS:在Vscode中编写markdown文件时也可以通过<strong>ctrl+shift+v</strong>来预览效果。<br />
+另外运行项目预览的指令：<strong>jekyll serve –watch</strong></p>
 
 <h3 id="标题">标题</h3>
 
@@ -57,7 +58,7 @@ PS:在Vscode中编写markdown文件时也可以通过<strong>ctrl+shift+v</stron
 
 <ol>
   <li>如果是段落上的一个函数或片段的代码可以用反单引号（`）来包裹</li>
-  <li>代码区块使用4个空格或者一个制表符（Tab键），也可以用单个反单引号（```）来包裹</li>
+  <li>代码区块使用4个空格或者一个制表符（Tab键），也可以用三个反单引号（```）来包裹</li>
 </ol>
 
 <h3 id="链接">链接</h3>
