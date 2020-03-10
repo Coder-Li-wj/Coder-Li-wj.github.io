@@ -1,4 +1,4 @@
-I"q<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
+I"�<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
 <ol>
   <li>命名冲突</li>
   <li>文件依赖</li>
@@ -24,7 +24,7 @@
   <li>如何定义模块化：一个js文件就是一个模块化，模块内部的成员都是互相独立；</li>
   <li>模块成员的导出和引入：<br />
 <strong>导出模块成员的两种方式：exports和module.exports，还有一个是global（不常用）</strong><br />
-```javascript
+```javascript<br />
 // 方法一：exports
 var sum = function(a, b){
  return parseInt(a) + parseInt(b)
@@ -47,7 +47,8 @@ module.exports = sum;</p>
 <p>// 在另一个js文件中引入并使用
 var module = require(‘路径’)
 var result = module(1 + 1)
-``</p>
+```</p>
 
 <h4 id="模块文件后缀的3中情况js-json-node">模块文件后缀的3中情况：.js .json .node</h4>
+<p>不加文件后缀的情况下，以上三种模块的加载优先级：.js -&gt; .json -&gt; .node</p>
 :ET

@@ -1,0 +1,89 @@
+I"^<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
+<ol>
+  <li>命名冲突</li>
+  <li>文件依赖</li>
+</ol>
+
+<h4 id="前端标准的模块化规范">前端标准的模块化规范：</h4>
+<ol>
+  <li>AMD - requirejs</li>
+  <li>CMD - seajs</li>
+</ol>
+
+<h4 id="服务器端的模块化规范">服务器端的模块化规范：</h4>
+<ol>
+  <li>CommonJs - Node.js</li>
+</ol>
+
+<p><strong>前端模块化规范和服务器端模块化规范的不同之处主要在：<code class="highlighter-rouge">文件加载</code>。<br />
+对于前端的模块化：要加载js文件要从服务器端经过网络传输到浏览器端（一般是异步）；<br />
+对于服务器端的模块化：js文件本来在服务器中，它的加载只需从磁盘加载到内存（同步）。</strong></p>
+
+<h4 id="模块化相关的规则">模块化相关的规则：</h4>
+<ol>
+  <li>如何定义模块化：一个js文件就是一个模块化，模块内部的成员都是互相独立；</li>
+  <li>模块成员的导出和引入：<br />
+<strong>导出模块成员的两种方式：exports和module.exports，还有一个是global（不常用）</strong></li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="c1">// 方法一：exports</span>
+<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// 导出模块成员</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">sum</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">;</span>
+
+<span class="c1">// 在另一个js文件中引入并使用</span>
+<span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">路径</span><span class="dl">'</span><span class="p">)</span><span class="c1">//已经加载的模块会缓存，即使require多次也只有第一次有用</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">sum</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">// 方法二：module.exports</span>
+<span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">// 导出模块成员</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">sum</span><span class="p">;</span>
+
+<span class="c1">// 在另一个js文件中引入并使用</span>
+<span class="kd">var</span> <span class="nx">module</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">路径</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">module</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="模块文件后缀的3中情况js-json-node">模块文件后缀的3中情况：.js .json .node</h4>
+<p>不加文件后缀的情况下，以上三种模块的加载优先级：.js -&gt; .json -&gt; .node</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">//eg:</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">mapGetters</span><span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">vuex</span><span class="dl">'</span>
+<span class="c1">//方法一：使用对象展开运算符，将getter混入computed对象中  </span>
+<span class="nx">computed</span><span class="p">:{...</span><span class="nx">mapGetters</span><span class="p">([</span><span class="dl">'</span><span class="s1">cartLength</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">...</span><span class="dl">'</span><span class="p">,...])}</span>
+<span class="c1">//方法二：将getter属性另取一个名字，使用对象形式：</span>
+<span class="nl">computed</span><span class="p">:{...</span><span class="nx">mapGetters</span><span class="p">({</span><span class="na">len</span><span class="p">:</span><span class="dl">'</span><span class="s1">cartLength</span><span class="dl">'</span><span class="p">,</span> <span class="p">...})}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

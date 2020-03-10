@@ -1,5 +1,4 @@
-I"�
-<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
+I"�<h4 id="传统非模块化开发有如下缺点">传统非模块化开发有如下缺点：</h4>
 <ol>
   <li>命名冲突</li>
   <li>文件依赖</li>
@@ -47,38 +46,10 @@ module.exports = sum;</p>
 
 <p>// 在另一个js文件中引入并使用
 var module = require(‘路径’)
-var result = module(1 + 1)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="rouge-code"><pre>
-#### 模块文件后缀的3中情况：.js .json .node  
-```javascript
-function a(){
-        let str = "Hello World! 你好，世界！"
-        let len = str.length
-            str = str.split('') //将字符串拆分为数组
-        for(let i = 0; i &lt; len; i++){
-            if (str[i].charCodeAt() &gt;= 65 &amp;&amp; str[i].charCodeAt() &lt;= 90){
-                str[i] = str[i].toLowerCase()
-            }else if(str[i].charCodeAt() &gt;= 97 &amp;&amp; str[i].charCodeAt() &lt;= 122) {
-                str[i] = str[i].toUpperCase()
-            }
-        }
-        return str.join('') //将数组合并成字符串
-    }
-</pre></td></tr></tbody></table></code></pre></div></div>
+var result = module(1 + 1)
+```</p>
+
+<h4 id="模块文件后缀的3中情况js-json-node">模块文件后缀的3中情况：.js .json .node</h4>
+<p>不加文件后缀的情况下，以上三种模块的加载优先级：.js -&gt; .json -&gt; .node</p>
+
 :ET
