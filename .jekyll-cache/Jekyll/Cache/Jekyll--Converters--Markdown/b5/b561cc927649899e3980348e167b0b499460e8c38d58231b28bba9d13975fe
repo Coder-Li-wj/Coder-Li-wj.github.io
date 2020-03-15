@@ -1,0 +1,4 @@
+I"�<p>http.createServer()方法中回调函数的参数request和response：<br />
+<strong>1.request对象是http.IncomingMessage 类的实例对象</strong><br />
+<strong>2.response对象是http.ServerResponse 类的实例对象</strong></p>
+:ET
