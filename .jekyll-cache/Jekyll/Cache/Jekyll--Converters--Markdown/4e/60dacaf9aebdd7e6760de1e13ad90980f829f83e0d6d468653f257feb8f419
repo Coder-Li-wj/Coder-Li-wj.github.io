@@ -1,0 +1,109 @@
+I"�-<h2 id="buffer的基本操作">Buffer的基本操作</h2>
+<h3 id="buffer对象是node处理二进制数据的一个接口它是node原生提供的全局对象可以直接使用不需要requirebuffer">Buffer对象是Node处理二进制数据的一个接口。它是Node原生提供的全局对象，可以直接使用，不需要require(‘buffer’)</h3>
+
+<h5 id="实例化buffer对象">实例化Buffer对象</h5>
+<ol>
+  <li><strong>Buffer.alloc(size[, fill[, encoding]])：</strong>返回一个指定大小的 Buffer 实例，如果没有设置 fill，则默认填满 0
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c1">// 创建一个长度为 5、且用 0 填充的 Buffer。</span>
+<span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="c1">//结果：&lt;Buffer 00 00 00 00 00&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>Bufffer.from(string[, encoding])：</strong> 返回一个被 string 的值初始化的新的 Buffer 实例
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="c1">//结果：&lt;Buffer 68 65 6c 6c 6f&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>Bufffer.from(array)：</strong> 返回一个被 array 的值初始化的新的 Buffer 实例（传入的 array 的元素只能是数字，不然就会自动被 0 覆盖）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c1">//创建一个新的包含utf-8字节的缓冲区</span>
+<span class="kd">const</span> <span class="nx">buf</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">([</span><span class="mh">0x62</span><span class="p">,</span> <span class="mh">0x75</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x66</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x72</span><span class="p">]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="c1">//结果：buffer</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h5 id="功能方法">功能方法</h5>
+<ol>
+  <li><strong>Buffer.isEncoding()：</strong>判断是否支持该编码，如果支持返回true，否则返回false
+    <blockquote>
+      <p>目前支持的编码：’ascii’,’utf8’,’utf16le’,’ucs2’,’base64’,’latin1’,’binary’,’hex’</p>
+    </blockquote>
+  </li>
+  <li><strong>Buffer.isBuffer()：</strong>判断是否为Buffer，如果是返回true，否则返回false</li>
+  <li><strong>Buffer.byteLength()：</strong>返回指定编码的字节长度，默认utf-8
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">中国</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">Buffer</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">(</span><span class="nx">buf</span><span class="p">))</span><span class="c1">//结果：6 </span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>Buffer.concat()：</strong>将一组Buffer对象合并为一个Buffer对象
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf1</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">Tom and</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">buf2</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">Jerry</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">buf3</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">concat</span><span class="p">([</span><span class="nx">buf1</span><span class="p">,</span> <span class="nx">buf2</span><span class="p">])</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf3</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="c1">//结果：Tom and Jerry</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h5 id="实例方法">实例方法</h5>
+<ol>
+  <li><strong>buf.write(string[, offset[, length]][, encoding])</strong>：向buffer对象写入内容
+    <blockquote>
+      <p>可选参数：
+offset：从哪个位置开始写，默认是0<br />
+length：写入多少个字节，默认是buf.length<br />
+encoding:编码类型，默认是’utf8’</p>
+      <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="nx">alloc</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nx">buf</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">)</span><span class="c1">//结果：&lt;Buffer 68 65 6c 6c 6f&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </li>
+  <li><strong>buf.slice([start[, end]])：</strong>截取新的buffer对象
+    <blockquote>
+      <p>可选参数：
+start：新 Buffer 开始的位置。默认值: 0<br />
+end：新 Buffer 结束的位置（不包含）。默认值: buf.length。</p>
+      <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">buf1</span> <span class="o">=</span> <span class="nx">buf</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf1</span><span class="p">)</span><span class="c1">//结果：ll</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </li>
+  <li><strong>buf.toString([encoding[, start[, end]]])：</strong>把buffer对象转成字符串
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">buf</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span><span class="c1">//结果：hello</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>buf.toJson([encoding[, start[, end]]])：</strong>把buffer对象转成json形式的字符串（toJson方法不需要显式调用，当JSON.stringify方法调用的时候会自动调用toJSON方法）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">buf</span> <span class="o">=</span> <span class="nx">Buffer</span><span class="p">.</span><span class="k">from</span><span class="p">([</span><span class="mh">0x1</span><span class="p">,</span> <span class="mh">0x2</span><span class="p">,</span> <span class="mh">0x3</span><span class="p">,</span> <span class="mh">0x4</span><span class="p">,</span> <span class="mh">0x5</span><span class="p">]);</span>
+<span class="kd">let</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">buf</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">json</span><span class="p">);</span><span class="c1">// 结果: {"type":"Buffer","data":[1,2,3,4,5]}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET

@@ -1,0 +1,5 @@
+I"s<h6 id="全局安装--g">全局安装 -g：</h6>
+<p><strong>全局安装的包位于Node.js环境的node_modules目录下，全局安装的包一般在命令行工具cmd中使用</strong></p>
+<h6 id="本地安装">本地安装：</h6>
+<p><strong>本地安装的包在当前目录下的node_modules里面，本地安装的包一般用于实际的开发工作</strong></p>
+:ET

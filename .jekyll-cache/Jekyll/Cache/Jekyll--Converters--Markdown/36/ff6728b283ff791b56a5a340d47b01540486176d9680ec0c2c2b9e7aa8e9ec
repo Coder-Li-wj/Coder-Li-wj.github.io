@@ -1,0 +1,81 @@
+I"y*<p><strong>导入path路径系统模块：</strong><code class="highlighter-rouge">const path = require('path');</code></p>
+
+<ol>
+  <li><strong>path.basename(path[, ext])：</strong>获取路径最后部分（参数ext：可选的文件扩展名）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo/bar/baz/asdf/quux.html</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：quux.html</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">basename</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo/bar/baz/asdf/quux.html</span><span class="dl">'</span><span class="p">),</span> <span class="dl">'</span><span class="s1">.html</span><span class="dl">'</span><span class="p">)</span><span class="c1">//结果：quux</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>path.dirname(path)：</strong>路径的目录名
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">dirname</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo/bar/baz/asdf/quux</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：/foo/bar/baz/asdf</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>path.extname()：</strong>路径的扩展名（返回 path 的扩展名，即从 path 的最后一部分中的最后一个 .（句号）字符到字符串结束。如果 path 的最后一部分没有 . 或 path 的文件名（参考 path.basename()）的第一个字符是 .，则返回一个空字符串。）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'.html'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="dl">'</span><span class="s1">index.coffee.md</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'.md'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="dl">'</span><span class="s1">index.</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'.'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="dl">'</span><span class="s1">index</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：''</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">extname</span><span class="p">(</span><span class="dl">'</span><span class="s1">.index</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：''</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>路径的格式化处理：</strong><code class="highlighter-rouge">path.format()</code>:obj -&gt; string    <code class="highlighter-rouge">path.parse()</code>:string -&gt;obj<br />
+<strong>path.parse()：</strong>对象转成字符串
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="dl">'</span><span class="s1">/home/user/dir/file.txt</span><span class="dl">'</span><span class="p">))</span>
+<span class="c1">//输出结果：</span>
+<span class="c1">// { root: '/',              //文件的根路径</span>
+<span class="c1">//   dir: '/home/user/dir',  //文件的全路径</span>
+<span class="c1">//   base: 'file.txt',       //文件名+扩展名</span>
+<span class="c1">//   ext: '.txt',            //扩展名</span>
+<span class="c1">//   name: 'file' }          //文件名 </span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p><strong>path.format()：</strong>字符串转成对象</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">objpath</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">root</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/ignored</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">dir</span><span class="p">:</span> <span class="dl">'</span><span class="s1">/home/user/dir</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">base</span><span class="p">:</span> <span class="dl">'</span><span class="s1">file.txt</span><span class="dl">'</span>
+<span class="p">}</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">objpath</span><span class="p">))</span><span class="c1">//结果：'/home/user/dir/file.txt'</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>path.isAbsolute：</strong>判断是否为绝对路径
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">isAbsolute</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo/bar</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">isAbsolute</span><span class="p">(</span><span class="dl">'</span><span class="s1">C:/foo/..</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：true</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>path.join([…paths])：</strong>路径的拼接（..表示上层路径；.表示当前路径），在连接路径的时候回格式化路径
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">baz/asdf</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">quux</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">..</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'/foo/bar/baz/asdf'</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>path.normalize(path)：</strong>规范化路径
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">normalize</span><span class="p">(</span><span class="dl">'</span><span class="s1">/foo/bar//baz/asdf/quux/..</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'/foo/bar/baz/asdf'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">normalize</span><span class="p">(</span><span class="dl">'</span><span class="s1">C:</span><span class="se">\\</span><span class="s1">temp</span><span class="se">\\\\</span><span class="s1">foo</span><span class="se">\\</span><span class="s1">bar</span><span class="se">\\</span><span class="s1">..</span><span class="se">\\</span><span class="dl">'</span><span class="p">))</span><span class="c1">//结果：'C:\\temp\\foo\\'</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET

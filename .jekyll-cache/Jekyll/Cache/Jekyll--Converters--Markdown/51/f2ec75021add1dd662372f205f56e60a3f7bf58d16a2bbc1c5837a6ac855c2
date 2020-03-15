@@ -1,0 +1,2 @@
+I")<h3 id="buffer对象是node处理二进制数据的一个接口它是node原生提供的全局对象可以直接使用不需要requirebuffer">Buffer对象是Node处理二进制数据的一个接口。它是Node原生提供的全局对象，可以直接使用，不需要require(‘buffer’)</h3>
+:ET

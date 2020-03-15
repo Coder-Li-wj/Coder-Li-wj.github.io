@@ -1,0 +1,26 @@
+I"[<p><strong>导入fs文件系统模块：</strong><code class="highlighter-rouge">const fs = require('fs')</code></p>
+
+<ol>
+  <li><strong>读取文件信息：</strong><code class="highlighter-rouge">fs.stat(path[, options], callback)</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="dl">'</span><span class="s1">文件名.txt</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stats</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="c1">//一般回调函数的第一个参数是错误对象，若果err为null，表示没有错误，否则表示报错了</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">该path是文件</span><span class="dl">'</span><span class="p">)</span>
+ <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">该path是路径</span><span class="dl">'</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET

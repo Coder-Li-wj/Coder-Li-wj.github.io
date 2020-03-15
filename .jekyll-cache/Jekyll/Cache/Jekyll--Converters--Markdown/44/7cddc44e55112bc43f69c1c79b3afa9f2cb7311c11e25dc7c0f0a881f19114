@@ -1,5 +1,0 @@
-I"+<h3 id="一includes">一、includes()</h3>
-<p><strong>判断字符串中是否包含指定的字符串（包含的话返回true，否则返回false）</strong><br />
-<strong>第一个参数：匹配的字符串；</strong><br />
-<strong>第二个参数：从第几个字符开始匹配</strong></p>
-:ET

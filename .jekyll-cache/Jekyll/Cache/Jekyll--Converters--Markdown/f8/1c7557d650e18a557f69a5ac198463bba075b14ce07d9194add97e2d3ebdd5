@@ -1,0 +1,230 @@
+I"�Q<p><strong>导入fs文件系统模块：</strong><code class="highlighter-rouge">const fs = require('fs')</code></p>
+
+<h5 id="nodejs中提供了两个与文件操作相关全局可用变量__dirname和__filename">Node.js中提供了两个与文件操作相关全局可用变量__dirname和__filename</h5>
+<p><strong>__dirname：表示当前文件所在的目录的绝对路径(不含文件名)</strong>  <br />
+<strong>__filename： 表示当前文件的绝对路径(包含文件名)</strong></p>
+
+<ol>
+  <li><strong>读取文件信息：</strong><code class="highlighter-rouge">fs.stat(path[, options], callback)</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="dl">'</span><span class="s1">文件路径</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stats</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="c1">//一般回调函数的第一个参数是错误对象，若果err为null，表示没有错误，否则表示报错了</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">该path是文件</span><span class="dl">'</span><span class="p">)</span>
+ <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">stats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">该path是路径</span><span class="dl">'</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>读文件操作：</strong><code class="highlighter-rouge">fs.readFile(path[, options], callback)</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="c1">//异步操作  </span>
+<span class="kd">let</span> <span class="nx">strpath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data.txt</span><span class="dl">'</span><span class="p">)</span><span class="c1">//data.txt为读取的文件名  </span>
+<span class="c1">//如果有第二个参数并且是编码，那么回调函数获取到的数据就是字符串  </span>
+<span class="c1">//如果没有第二个参数，那么得到的就是Buffer实例对象  </span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">strpath</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span><span class="c1">//输出data.txt文件里面的数据  </span>
+<span class="p">})</span>
+<span class="c1">//同步操作  </span>
+<span class="kd">let</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">strpath</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span><span class="c1">//输出data.txt文件里面的数据  </span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>写文件操作：</strong><code class="highlighter-rouge">fs.writeFile(file, data[, options], callback)</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="c1">//异步操作  </span>
+<span class="kd">let</span> <span class="nx">strpath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">data.txt</span><span class="dl">'</span><span class="p">)</span><span class="c1">//data.txt为读取的文件名  </span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">writeFile</span><span class="p">(</span><span class="nx">strpath</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">文件写入成功</span><span class="dl">"</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">})</span>
+<span class="c1">//同步操作  </span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span><span class="p">(</span><span class="nx">strpath</span><span class="p">,</span> <span class="dl">'</span><span class="s1">hello</span><span class="dl">'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="大文件的读写操作流式操作">大文件的读写操作（流式操作）</h4>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">spath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">读取文件路径</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">读取文件名</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">dpath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="dl">'</span><span class="s1">写入文件路径</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">写入文件名</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">readStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">spath</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">writeStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">dpath</span><span class="p">);</span>
+<span class="c1">//基于事件处理方式</span>
+<span class="kd">let</span> <span class="nx">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="c1">//用于记录读取文件时执行多少次函数</span>
+<span class="nx">readStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">data</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">chuck</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">num</span><span class="o">++</span><span class="p">;</span>
+    <span class="nx">writeStream</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">chuck</span><span class="p">);</span>
+<span class="p">})</span>
+<span class="nx">readStream</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">文件处理完成</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//-----------------------------------------------</span>
+<span class="c1">//简洁方法</span>
+<span class="c1">//pipe的作用直接把输入流和输出流链接在一起</span>
+<span class="nx">readStream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">writeStream</span><span class="p">);</span>
+<span class="c1">//-----------------------------------------------</span>
+<span class="c1">//或者更简便，把上面声明的readStream和writeStream变量的两步省略</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">spath</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">createWriteStream</span><span class="p">(</span><span class="nx">dpath</span><span class="p">));</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h4 id="目录操作">目录操作</h4>
+<ol>
+  <li><strong>创建目录</strong><br />
+异步：<code class="highlighter-rouge">fs.mkdir(path[, options], callback)</code><br />
+同步：<code class="highlighter-rouge">fs.mkdirSync(path[, options])</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">fs)
+//异步创建目录
+fs.mkdir(path.join(__dirname, </span><span class="dl">'</span><span class="err">文件名</span><span class="dl">'</span><span class="s1">), (err) =&gt; {
+ console.log(err)
+})
+//---------------------------------------------------
+//同步创建目录
+fs.mkdirSync(path.join(__dirname, </span><span class="dl">'</span><span class="err">文件名</span><span class="dl">'</span><span class="s1">))
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>读取目录</strong>
+异步：<code class="highlighter-rouge">fs.readdir(path[, options], callback)</code><br />
+同步：<code class="highlighter-rouge">fs.readdirSync(path[, options])</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="c1">//异步读取目录</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readdir</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">files</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="nx">item</span><span class="p">),</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">stat</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="dl">'</span><span class="s1">文件</span><span class="dl">'</span><span class="p">)</span>
+         <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">stat</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="dl">'</span><span class="s1">目录</span><span class="dl">'</span><span class="p">)</span>
+         <span class="p">}</span>
+     <span class="p">})</span>
+ <span class="p">})</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------------------------</span>
+<span class="c1">//同步读取目录</span>
+<span class="kd">let</span> <span class="nx">files</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">);</span>
+ <span class="nx">files</span><span class="p">.</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="nx">fs</span><span class="p">.</span><span class="nx">stat</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="nx">item</span><span class="p">),</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">stat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+         <span class="k">if</span><span class="p">(</span><span class="nx">stat</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="dl">'</span><span class="s1">文件</span><span class="dl">'</span><span class="p">)</span>
+         <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">stat</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">()){</span>
+             <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="dl">'</span><span class="s1">目录</span><span class="dl">'</span><span class="p">)</span>
+         <span class="p">}</span>
+     <span class="p">})</span>
+ <span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>删除目录</strong><br />
+异步：<code class="highlighter-rouge">fs.rmdir(path[, options], callback)</code><br />
+同步：<code class="highlighter-rouge">fs.rmdirSync(path[, options])</code>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">//异步删除目录</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">rmdir</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">删除的文件名</span><span class="dl">'</span><span class="p">),</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------------------------</span>
+<span class="c1">//同步删除目录</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">rmdirSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">删除的文件名</span><span class="dl">'</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET
