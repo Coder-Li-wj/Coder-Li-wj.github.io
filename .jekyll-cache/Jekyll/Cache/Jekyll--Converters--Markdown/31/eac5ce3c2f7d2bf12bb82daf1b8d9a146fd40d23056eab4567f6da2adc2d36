@@ -1,0 +1,5 @@
+I"R<h6 id="导入模块">导入模块</h6>
+<p><strong>方法一：</strong> <code class="highlighter-rouge">const express = require('express')</code><br />
+             <code class="highlighter-rouge">const app = express()</code><br />
+<strong>方法二：</strong><code class="highlighter-rouge">const app = require('express')()</code></p>
+:ET

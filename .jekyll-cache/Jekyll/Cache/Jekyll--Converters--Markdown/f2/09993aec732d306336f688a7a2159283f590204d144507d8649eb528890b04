@@ -1,0 +1,33 @@
+I"�<h6 id="导入模块">导入模块</h6>
+<p><strong>方法一：</strong> <code class="highlighter-rouge">const express = require('express')</code>  <code class="highlighter-rouge">const app = express()</code><br />
+<strong>方法二：</strong><code class="highlighter-rouge">const app = require('express')()</code></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="c1">//实现静态资源服务(静态资源存放在public文件中)</span>
+<span class="kd">let</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="dl">'</span><span class="s1">public</span><span class="dl">'</span><span class="p">))</span><span class="c1">//app.use可以用多次，指定多个目录作为静态资源目录</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">running...</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------------------------</span>
+<span class="c1">//优化</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="dl">'</span><span class="s1">public</span><span class="dl">'</span><span class="p">))</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">running...</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>PS：</strong>上面的<code class="highlighter-rouge">use</code>方法的第一个参数可以指定一个虚拟路径，例如：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">let</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/aaaa</span><span class="dl">'</span><span class="p">,</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="dl">'</span><span class="s1">public</span><span class="dl">'</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

@@ -1,0 +1,45 @@
+I"�<p><strong>路由：根据请求路径和请求方式进行路径的分发处理</strong><br />
+<strong>http的常用请求方式：</strong>添加<code class="highlighter-rouge">post</code>，查询<code class="highlighter-rouge">get</code>，更新<code class="highlighter-rouge">put</code>，删除<code class="highlighter-rouge">delete</code></p>
+
+<p><strong>基本的路由处理</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">get data</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">post data</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">put data</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">detele</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">detele data</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>直接使用use分发可以处理所有的路由请求</strong></p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">ok</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

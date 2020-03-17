@@ -1,0 +1,30 @@
+I"�	<p><strong>导入系统模块：</strong><code class="highlighter-rouge">const querystring = require('querystring');</code></p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kd">const</span> <span class="nx">querystring</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">querystring</span><span class="dl">'</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nx">param</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">foo=bar&amp;abc=123&amp;abc=456</span><span class="dl">'</span>
+<span class="c1">//param方法将字符串转成对象</span>
+<span class="kd">let</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">querystring</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">param</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span>
+<span class="c1">//------------------------------------------------</span>
+<span class="kd">let</span> <span class="nx">obj1</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="na">foo</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bar</span><span class="dl">'</span><span class="p">,</span> 
+    <span class="na">abc</span><span class="p">:</span> <span class="p">[</span> <span class="dl">'</span><span class="s1">123</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">456</span><span class="dl">'</span> <span class="p">]</span> 
+<span class="p">}</span>
+<span class="c1">//stringify方法将对象转成字符串</span>
+<span class="kd">let</span> <span class="nx">param1</span> <span class="o">=</span> <span class="nx">querystring</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">obj1</span><span class="p">)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">param1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET
