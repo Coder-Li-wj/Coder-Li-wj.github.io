@@ -1,0 +1,154 @@
+I"�,<h3 id="三个概念">三个概念</h3>
+<ol>
+  <li>数据库：数据库是一个仓库，在仓库中可以存放着集合</li>
+  <li>集合(collection)：集合类似于数组，在集合中存放文档</li>
+  <li>文档(document)：文档是数据库中最小的单位，我们存储和操作的内容都是文档<br />
+如下关系图：<br />
+<img src="/img/mongodb/dcd.jpg" alt="关系图" /></li>
+</ol>
+
+<h3 id="基本指令">基本指令</h3>
+<ol>
+  <li><code class="highlighter-rouge">show dbs/database</code>：显示当前的所有数据库</li>
+  <li><code class="highlighter-rouge">use 数据库名</code>：进入到指定的数据库中</li>
+  <li><code class="highlighter-rouge">db</code>：显示当前所处的数据库</li>
+  <li><code class="highlighter-rouge">show collections</code>：显示数据库中所有的集合</li>
+</ol>
+
+<h3 id="数据库的增删改查crud操作">数据库的增删改查（CRUD）操作</h3>
+
+<h6 id="一增db集合名insertdoc">一、增：db.集合名.insert(doc)</h6>
+<p><strong><code class="highlighter-rouge">db.集合名.insert(doc)</code>：向集合中插入一个或多个文档对象（插入一个时传对象，多个时传数组）</strong><br />
+   当我们向集合中插入文档时，如果没有给文档指定<code class="highlighter-rouge">_id</code>属性(用来作为文档的唯一标识)，则数据库会自动为文档添加<code class="highlighter-rouge">_id</code>，我们也可以自己去指定<code class="highlighter-rouge">_id</code>，注意不能相同  <br />
+   <strong>db.集合名.insertOne()</strong>：插入一个文档对象<br />
+   <strong>db.集合名.insertMany()</strong>：插入多个文档对象<br />
+   例如：</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>   <span class="c1">//向test数据库中的stus集合中插入一个新的学生对象{name:"Mike",age:18,gender:"male"}  </span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">stus</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span><span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">Mike</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="na">gender</span><span class="p">:</span><span class="dl">"</span><span class="s2">male</span><span class="dl">"</span><span class="p">})</span>   
+    <span class="c1">//向test数据库中的stus集合中插入多个新的学生对象</span>
+    <span class="nx">db</span><span class="p">.</span><span class="nx">stus</span><span class="p">.</span><span class="nx">insert</span><span class="p">([</span>
+        <span class="p">{</span><span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">Mike</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="na">gender</span><span class="p">:</span><span class="dl">"</span><span class="s2">male</span><span class="dl">"</span><span class="p">},</span>
+        <span class="p">{</span><span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">Mike</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="na">gender</span><span class="p">:</span><span class="dl">"</span><span class="s2">male</span><span class="dl">"</span><span class="p">},</span>
+        <span class="p">{</span><span class="na">name</span><span class="p">:</span><span class="dl">"</span><span class="s2">Mike</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">18</span><span class="p">,</span><span class="na">gender</span><span class="p">:</span><span class="dl">"</span><span class="s2">male</span><span class="dl">"</span><span class="p">}</span>
+    <span class="p">])</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="二查db集合名find">二、查：db.集合名.find()</h6>
+<p><strong><code class="highlighter-rouge">db.集合名.find()</code>：查询当前集合中符合条件的所有文档（默认情况下按id排序），返回的是一个数组，find({字段:值})可以接受一个对象作为条件参数</strong></p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.stus.find({age:18,gender:"female"})</code></p>
+</blockquote>
+
+<ol>
+  <li><strong>db.集合名.findOne()</strong>：查询集合中符合条件的第一个文档，返回的是一个对象</li>
+  <li><strong>db.集合名.find().count()</strong>：查询所有符合条件的文档的数量，返回数值</li>
+  <li><strong>db.集合名.find().limit(显示条数)</strong>：设置显示数据的上限
+    <blockquote>
+      <p>例如：<code class="highlighter-rouge">db.numbers.find().limit(10)</code>  //显示前十条文档</p>
+    </blockquote>
+  </li>
+  <li><strong>db.集合名.find().skip(跳过条数).limit(显示条数)</strong>：设置跳过指定条数并显示指定条数
+    <blockquote>
+      <p>例如：<code class="highlighter-rouge">db.numbers.find().skip(10).limit(10)</code>  //跳过前10条文档，并显示后十条文档</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>该操作一般用于分页码显示：<code class="highlighter-rouge">skip((页码 - 1) * 每页显示条数).limit(每页显示条数)</code></p>
+<ol>
+  <li><strong>db.集合名.find().sort()</strong>：指定文档的排序规则,sort()需要传递一个对象来指定排序，对象的值为<code class="highlighter-rouge">1</code>时是升序，<code class="highlighter-rouge">-1</code>时是降序
+    <blockquote>
+      <p>例如：<br />
+   <code class="highlighter-rouge">db.numbers.find().sort({num:1})</code> //按照num属性进行升序排序<br />
+例如：<br />
+   <code class="highlighter-rouge">db.numbers.find().sort({num:1, price:-1})</code>  //先按照num属性进行升序排序，再按照price属性降序排序</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p>查询操作符：<br />
+   <strong><code class="highlighter-rouge">$gt</code></strong>：查询大于某个值的所有文档</p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.numbers.find({num: {$gt: 500}})</code>   //查询num大于500的文档</p>
+</blockquote>
+
+<p><strong><code class="highlighter-rouge">$gte</code></strong>：大于等于<br />
+   <strong><code class="highlighter-rouge">$lt</code></strong>：小于<br />
+   <strong><code class="highlighter-rouge">$lte</code></strong>：小于等于<br />
+   <strong><code class="highlighter-rouge">$ne</code></strong>：不等于<br />
+   <strong><code class="highlighter-rouge">$or</code></strong>：或；</p>
+<blockquote>
+  <p>例如：查询num小于10或大于20的文档：<code class="highlighter-rouge">db.numbers.find({$or: [{num:{$lt:10}}, {num:{$gt:20}}]})</code></p>
+</blockquote>
+
+<h6 id="三改db集合名update查询条件新对象">三、改：db.集合名.update(查询条件,新对象)</h6>
+<p><strong><code class="highlighter-rouge">db.集合名.update(查询条件,新对象)</code>：修改符合条件的文档对象（默认情况下只改第一个，如果需要修改多个，需要再加上第三个参数{multi: true}），注意<code class="highlighter-rouge">update()</code>默认情况下会使用新对象替换就对象，如果只想修改旧对象指定的属性，而不是替换掉，就需要使用修改操作符来完成修改</strong></p>
+<ol>
+  <li><strong>db.集合名.updateOne()</strong>：修改一个符合条件的文档</li>
+  <li><strong>db.集合名.updateMany()</strong>：修改所有符合条件的文档</li>
+  <li><strong>db.集合名.replaceOne()</strong>：替换一个符合条件的文档</li>
+</ol>
+
+<p>修改操作符：<br />
+   <strong><code class="highlighter-rouge">$set</code>：可以修改文档中指定的属性</strong></p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.stus.update({name:"Mike"},{$set:{age:38}})</code></p>
+</blockquote>
+
+<p><strong><code class="highlighter-rouge">$unset</code>：可以删除文档中指定的属性</strong></p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.stus.update({name:"Mike"},{$unset:{address:1}})</code></p>
+</blockquote>
+
+<p><strong><code class="highlighter-rouge">$push</code></strong>：用于向数组中添加一个新的元素<br />
+   <strong><code class="highlighter-rouge">$addToSet</code></strong>：用于向数组中添加一个新的元素，如果数组中已经存在该元素，则不会添加<br />
+   <strong><code class="highlighter-rouge">$inc</code></strong>：在原来基础上增加</p>
+
+<h6 id="四删db集合名remove">四、删：db.集合名.remove()</h6>
+<p><strong><code class="highlighter-rouge">db.集合名.remove()</code>：删除符合条件的所有文档对象（默认情况下删除所有，如果只想删除一个，需要再加上第二个参数true，注意只传递一个空对象{}作为参数，则会删除集合中的所有文档</strong></p>
+<blockquote>
+  <p>例如：<br />
+   删除所有：<code class="highlighter-rouge">db.stus.remove({name:"Mike"})</code><br />
+   删除一个：<code class="highlighter-rouge">db.stus.remove({name:"Mike"}, true)</code></p>
+</blockquote>
+
+<ol>
+  <li><strong>db.集合名.deleteOne()</strong>：删除一个符合条件的文档</li>
+  <li><strong>db.集合名.deleteMany()</strong>：删除所有符合条件的文档</li>
+</ol>
+
+<h6 id="五删除集合">五、删除集合</h6>
+<p><strong><code class="highlighter-rouge">db.集合名.drop()</code>：删除集合</strong></p>
+
+<h6 id="六删除数据库">六、删除数据库</h6>
+<p><strong><code class="highlighter-rouge">db.dropDatabase()</code>：删除数据库</strong></p>
+
+<h3 id="拓展">拓展</h3>
+<p><strong>内嵌文档</strong>：Mongodb的文档的属性值也可以是一个文档，当一个文档的属性值是文档时，我们称这个文档叫做  内嵌文档。</p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">{"cities": ["BJ","SH","GZ"], "movies":["hero","sanguo"]}</code></p>
+</blockquote>
+
+<p>MongoDB支持直接通过内嵌文档的属性进行查询，如果要查询内嵌文档时可以通过<code class="highlighter-rouge">.</code>的形式来匹配<br />
+<strong>注意：</strong>如果通过内嵌文档来对文档进行查询，此时属性名必须使用引号</p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.stus.find({"hobby.movies": "hero"})</code></p>
+</blockquote>
+
+<p><strong>$push</strong>：用于向数组中添加一个新的元素<br />
+<strong>$addToSet</strong>：用于向数组中添加一个新的元素，如果数组中已经存在该元素，则不会添加</p>
+
+<h6 id="投影">投影</h6>
+<p><strong>投影</strong>：在查询时，可以在第二个参数的位置来设置查询结果的投影</p>
+<blockquote>
+  <p>例如：<code class="highlighter-rouge">db.stus.find({}, {name:1, _id:0, gender})</code>//属性值为1时表示显示，_id默认情况下是显示的，如果不想显示_id，就设置为0</p>
+</blockquote>
+:ET

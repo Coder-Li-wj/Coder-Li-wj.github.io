@@ -1,0 +1,316 @@
+I"sQ<p><strong>Mongoose是一个<code class="highlighter-rouge">对象文档模型（ODM）</code>库，它对Node原生的MongoDB模块进行了进一步的优化封装，并提供了更多功能。Mongoose就是让我们通过Node来操作MongoDB的模块</strong></p>
+
+<p><strong>Mongoose为我们提供几个新的对象：</strong>(关系顺序：Schema-&gt;Model-&gt;Document)</p>
+<ol>
+  <li><strong>Schema(模式对象)</strong>：Schema对象定义约束了数据库中的文档结构</li>
+  <li><strong>Model</strong>：Model对象作为集合中的所有文档的表示，相当于MongoDB数据库中的集合collection</li>
+  <li><strong>Document</strong>：Document表示集合中具体的文档，相当于集合中的一个具体文档</li>
+</ol>
+
+<h6 id="使用mongoose">使用Mongoose</h6>
+<ol>
+  <li>在项目中安装<br />
+<code class="highlighter-rouge">npm install mongoose --save</code></li>
+  <li>引入<br />
+<code class="highlighter-rouge">var mongoose = require('mongoose')</code></li>
+  <li>连接MongoDB数据库<br />
+<code class="highlighter-rouge">mongoose.connect('mongodb://数据库ip地址:端口号/数据库名', {useNewUrlParser: true, useUnifiedTopology: true})</code><br />
+<em>如果端口号是默认端口号(27017)，则可以省略不写</em></li>
+  <li>断开数据库连接（一般不需要使用）<br />
+<code class="highlighter-rouge">mongoose.disconnect()</code><br />
+<em>PS：MongoDB数据库一般情况下，只需要连接一次，连接一次后，除非项目停止服务器关闭，否则不会断开</em></li>
+</ol>
+
+<h6 id="监听mongodb数据库的连接状态">监听MongoDB数据库的连接状态</h6>
+<p>在mongoose对象中，有一个属性叫做<code class="highlighter-rouge">connection</code>，该对象表示的就是数据库连接，通过监听该对象的状态，可以监听数据库的连接与断开</p>
+
+<p>数据库连接成功的事件<br />
+<code class="highlighter-rouge">mongoose.connection.once("open", function(){});</code><br />
+数据库断开的事件<br />
+<code class="highlighter-rouge">mongoose.connection.once("close", function(){});</code></p>
+
+<h6 id="schema和model的具体操作">Schema和Model的具体操作</h6>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c1">//将mongoose.Schema赋值给一个变量</span>
+<span class="kd">var</span> <span class="nx">Schema</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">Schema</span>
+
+<span class="c1">//创建Schema对象</span>
+<span class="kd">var</span> <span class="nx">stuSchema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Schema</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="nb">Number</span><span class="p">,</span>
+    <span class="na">gender</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
+        <span class="na">default</span><span class="p">:</span> <span class="dl">"</span><span class="s2">female</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="na">address</span><span class="p">:</span> <span class="nb">String</span>
+<span class="p">})</span>
+
+<span class="c1">//通过Schema来创建Model（Model代表数据库中的集合，通过Model才能对数据库进行操作）</span>
+<span class="c1">//mongoose.Model(modelname,schema)</span>
+<span class="c1">// modelname:要映射的集合名（mongoose会自动将集合名变成复数）;</span>
+<span class="c1">// scheam:对应哪个模型</span>
+<span class="kd">var</span> <span class="nx">stuModel</span><span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">model</span><span class="p">(</span><span class="dl">"</span><span class="s2">student</span><span class="dl">"</span><span class="p">,</span> <span class="nx">stuSchema</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="model的方法">Model的方法</h3>
+<h6 id="一增">一、增</h6>
+<p><strong><code class="highlighter-rouge">Model.create(doc(s), [callback])</code></strong>：用来创建一个或多个文档并添加到数据库中</p>
+<blockquote>
+  <p>参数：<br />
+doc(s)：可以是一个文档对象，也可以是一个文档对象的数组<br />
+callback：当操作完成以后调用的回调函数</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="nx">stuModel</span><span class="p">.</span><span class="nx">create</span><span class="p">([</span>
+        <span class="p">{</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LiLy</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">age</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="na">gender</span><span class="p">:</span> <span class="dl">"</span><span class="s2">female</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ShangHai</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Jhon</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">age</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+            <span class="na">gender</span><span class="p">:</span> <span class="dl">"</span><span class="s2">male</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">NewYork</span><span class="dl">"</span>
+        <span class="p">}</span>
+        <span class="p">],</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">arguements</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">插入成功...</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="二查">二、查</h6>
+<p><strong>1. <code class="highlighter-rouge">Model.find(conditions, [projection], [options], [callback])</code></strong>：查询所有符合条件的文档，返回数组<br />
+<strong>2. <code class="highlighter-rouge">Model.findById(id, [projection], [options], [callback])</code></strong>：根据文档的id属性查询文档<br />
+<strong>3. <code class="highlighter-rouge">Model.findOne([conditions], [projection], [options], [callback])</code></strong>：查询符合条件的第一个文档，返回具体的文档对象</p>
+<blockquote>
+  <p>参数：<br />
+conditions：查询条件<br />
+projection：投影需要获取的字段，两种方式：1.{name:1, _id:0}  2.”name -_id”<br />
+options：查询选项（skip limit）<br />
+callback：回调函数，查询结果通过回调函数返回</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="nx">stuModel</span><span class="p">.</span><span class="nx">find</span><span class="p">({</span>
+        <span class="na">age</span><span class="p">:</span><span class="mi">18</span>
+    <span class="p">},</span>
+    <span class="dl">"</span><span class="s2">name age -_id</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">{</span><span class="na">skip</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="na">limit</span><span class="p">:</span><span class="mi">1</span><span class="p">},</span>
+    <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">docs</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">docs</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+<span class="c1">//--------------------------------------</span>
+<span class="nx">stuModel</span><span class="p">.</span><span class="nx">findById</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">5e7a156435bace7880a78590</span><span class="dl">"</span><span class="p">,</span>
+    <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="三改">三、改</h6>
+<p><strong>1. <code class="highlighter-rouge">Model.update(conditions, doc, [options], [callback])</code></strong>：修改一个或多个文档<br />
+<strong>2. <code class="highlighter-rouge">Model.updateMany(conditions, doc, [options], [callback])</code></strong>：修改多个文档<br />
+<strong>3. <code class="highlighter-rouge">Model.updateOne(conditions, doc, [options], [callback])</code></strong>：修改一个文档<br />
+<strong>4. <code class="highlighter-rouge">Model.replaceOne(conditions, doc, [options], [callback])</code></strong>：替换一个文档</p>
+<blockquote>
+  <p>参数：<br />
+conditions：查询条件<br />
+doc：修改后的对象 
+options：配置参数  <br />
+callback：回调函数</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="nx">stuModel</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span>
+    <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LiLy</span><span class="dl">"</span><span class="p">},</span>
+    <span class="p">{</span><span class="na">$set</span><span class="p">:</span> <span class="p">{</span><span class="na">age</span><span class="p">:</span> <span class="mi">33</span><span class="p">}},</span>
+    <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">修改成功</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="四删">四、删</h6>
+<p><strong>1. <code class="highlighter-rouge">Model.remove(conditions, [callback])</code></strong>：删除一个或多个文档<br />
+<strong>2. <code class="highlighter-rouge">Model.deleteOne(conditions, [callback])</code></strong>：删除多个文档<br />
+<strong>3. <code class="highlighter-rouge">Model.deleteMany(conditions, [callback])</code></strong>：删除一个文档</p>
+<blockquote>
+  <p>参数：<br />
+conditions：条件 <br />
+callback：回调函数</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nx">stuModel</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span>
+    <span class="p">{</span><span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">LiLy</span><span class="dl">"</span><span class="p">},</span>
+    <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">删除成功</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h6 id="五其他">五、其他</h6>
+<p><strong>1. <code class="highlighter-rouge">Model.count(conditions, [callback])</code></strong>：统计文档数量</p>
+<blockquote>
+  <p>参数：<br />
+conditions：条件 <br />
+callback：回调函数</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="nx">stuModel</span><span class="p">.</span><span class="nx">count</span><span class="p">({},</span>
+    <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">count</span><span class="p">)</span> <span class="o">=&gt;</span><span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">count</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="document对象的方法">Document对象的方法</h3>
+<p><strong>Document和集合中的文档一一对应，Document是Model的实例，通过Model查询到结果都是Document</strong><br />
+创建一个Document</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">stu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">stuModel</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Amy</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="dl">"</span><span class="s2">21</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">gender</span><span class="p">:</span> <span class="dl">"</span><span class="s2">female</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">GuangZhou</span><span class="dl">"</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>1.<code class="highlighter-rouge">save([callback])</code></strong>：保存文档</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="nx">stu</span><span class="p">.</span><span class="nx">save</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">保存成功</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>2.<code class="highlighter-rouge">update(update, [options], [callback])</code></strong>：修改文档<br />
+<strong>3.<code class="highlighter-rouge">remove([callback])</code></strong>：删除文档</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="rouge-code"><pre><span class="c1">//修改和删除例子</span>
+<span class="nx">stuModel</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({},</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">doc</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+        <span class="nx">doc</span><span class="p">.</span><span class="nx">update</span><span class="p">({</span><span class="na">$set</span><span class="p">:{</span><span class="na">age</span><span class="p">:</span><span class="mi">100</span><span class="p">}},</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="c1">//修改</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">修改成功</span><span class="dl">"</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+        <span class="nx">doc</span><span class="p">.</span><span class="nx">remove</span><span class="p">((</span><span class="nx">err</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="c1">//删除</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">){</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">删除成功</span><span class="dl">"</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><strong>4.<code class="highlighter-rouge">toJson()</code></strong>：将Document对象转换为普通的JSON对象<br />
+<strong>5.<code class="highlighter-rouge">toObject()</code></strong>：将Document对象转换为普通的JS对象，注意：转换为普通的JS对象以后，所有的Document对象的方法或属性都不能使用</p>
+:ET

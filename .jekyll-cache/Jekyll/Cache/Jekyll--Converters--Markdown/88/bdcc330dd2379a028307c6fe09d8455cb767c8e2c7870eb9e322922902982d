@@ -1,0 +1,8 @@
+I"�<h3 id="安装mongodb">安装MongoDB</h3>
+<ol>
+  <li>配置环境变量：<code class="highlighter-rouge">C:\Program Files\MongoDB\Server\3.4\bin</code></li>
+  <li>在c盘根目录：先创建一个文件夹<code class="highlighter-rouge">data</code>，然后在data文件夹中创建一个文件夹<code class="highlighter-rouge">db</code></li>
+  <li>打开cmd命令行窗口：输入<code class="highlighter-rouge">mongod</code> 启动mongodb服务器（不要关闭cmd）</li>
+  <li>再打开另一个cmd命令行窗口：输入<code class="highlighter-rouge">mongo</code>连接mongodb，出现<code class="highlighter-rouge">&gt;</code>表示启动成功</li>
+</ol>
+:ET
