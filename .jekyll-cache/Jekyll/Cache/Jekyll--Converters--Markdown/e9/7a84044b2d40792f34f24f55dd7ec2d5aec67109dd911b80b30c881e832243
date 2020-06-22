@@ -1,0 +1,21 @@
+I"�<h4 id="新建正则表达式的方法">新建正则表达式的方法</h4>
+<ol>
+  <li>使用字面量，以斜杠表示开始和结束（常用！ 效率高，便利且直观）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/xyz/</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>使用<code class="highlighter-rouge">RegExp</code>构造函数
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">xyz</span><span class="dl">'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="实例属性">实例属性</h4>
+<ol>
+  <li>修饰符： &gt; 1) i： 执行对大小写不敏感的匹配（忽略字母大小写）；
+        &gt; 2) g： 执行全局匹配；
+        &gt; 3) m： 执行多行匹配。</li>
+</ol>
+:ET

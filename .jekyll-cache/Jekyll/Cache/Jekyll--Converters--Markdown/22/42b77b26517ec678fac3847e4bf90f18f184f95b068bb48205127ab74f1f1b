@@ -1,0 +1,120 @@
+I"�*<h4 id="新建正则表达式的方法">新建正则表达式的方法</h4>
+<ol>
+  <li>使用字面量，以斜杠表示开始和结束（常用！ 效率高，便利且直观）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/xyz/</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>使用<code class="highlighter-rouge">RegExp</code>构造函数
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">xyz</span><span class="dl">'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="实例属性">实例属性</h4>
+<ol>
+  <li>修饰符：
+    <blockquote>
+      <p>1) <code class="highlighter-rouge">i</code>： 执行对大小写不敏感的匹配（忽略字母大小写）；<br />
+2) <code class="highlighter-rouge">g</code>： 执行全局匹配；<br />
+3) <code class="highlighter-rouge">m</code>： 执行多行匹配。</p>
+    </blockquote>
+  </li>
+  <li>其他：
+    <blockquote>
+      <p>1) <code class="highlighter-rouge">lastIndex</code>: 返回一个数值，表示下一次开始搜索的位置。该属性可读写，但是只在进行连续搜索时有意义;<br />
+2) <code class="highlighter-rouge">source</code>: 返回正则表达式的字符串形式（不包括反斜杠）。</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="实例方法">实例方法</h4>
+<ol>
+  <li><strong><code class="highlighter-rouge">test()</code>：表示当前模式是否能匹配参数字符串，返回一个布尔值；</strong>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">/</span><span class="nx">cat</span><span class="o">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">cats and dogs</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">//true</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>PS: 如果正则表达式带有g修饰符，则每一次test方法都从上一次结束的位置开始向后匹配</p>
+  </li>
+  <li><strong><code class="highlighter-rouge">exec</code>：该方法用来返回匹配结果。如果发现匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回null。</strong>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="dl">'</span><span class="s1">_x_x</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// ["x"]</span>
+<span class="o">/</span><span class="nx">y</span><span class="o">/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="dl">'</span><span class="s1">_x_x)  // null
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>另外，如果正则表示式包含圆括号（即含有“组匹配”），则返回的数组会包括多个成员。第一个成员是整个匹配成功的结果，后面的成员就是圆括号对应的匹配成功的组。也就是说，第二个成员对应第一个括号，第三个成员对应第二个括号，以此类推。整个数组的length属性等于组匹配的数量再加1。</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">_x_x</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="sr">/_</span><span class="se">(</span><span class="sr">x</span><span class="se">)</span><span class="sr">/</span><span class="p">;</span>
+<span class="nx">r</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">// ["_x", "x"]</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p><code class="highlighter-rouge">exec</code>方法的返回数组还包含两个属性：</p>
+    <blockquote>
+      <p>input： 整个原字符串。<br />
+index： 整个模式匹配成功的开始位置（从0开始计数）。</p>
+      <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="sr">/a</span><span class="se">(</span><span class="sr">b+</span><span class="se">)</span><span class="sr">a/</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="dl">'</span><span class="s1">_abbba_aba_</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">arr</span> <span class="c1">// ["abbba", "bbb"]</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">input</span> <span class="c1">// "_abbba_aba_"</span>
+<span class="nx">arr</span><span class="p">.</span><span class="nx">index</span> <span class="c1">// 1</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="匹配规则">匹配规则</h4>
+<ol>
+  <li><strong>字面量字符和元字符</strong><br />
+1) 如果在正则表达式之中，某个字符只表示它字面的含义，那么它们就叫做“字面量字符”；  <br />
+2) 还有一部分字符有特殊含义，不代表字面的意思。它们叫做“元字符”
+    <blockquote>
+      <p>a、<code class="highlighter-rouge">点字符(.)</code>：点字符（.）匹配除回车（\r）、换行(\n) 、行分隔符（\u2028）和段分隔符（\u2029）以外的所有字符。</p>
+      <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">/</span><span class="p">.</span><span class="nx">t</span><span class="o">/</span> <span class="c1">// c.t匹配c和t之间包含任意一个字符的情况，只要这三个字符在同一行，比如cat、c2t、c-t等等，但是不匹配coot</span>
+</pre></td></tr></tbody></table></code></pre></div>      </div>
+      <p>b、<code class="highlighter-rouge">位置字符</code>： 位置字符用来提示字符所处的位置，主要有两个字符</p>
+      <blockquote>
+        <p><code class="highlighter-rouge">^</code>: 表示字符串的开始位置<br />
+<code class="highlighter-rouge">$</code>: 表示字符串的结束位置</p>
+      </blockquote>
+
+      <p>c、<code class="highlighter-rouge">选择符（|）</code>：竖线符号（|）在正则表达式中表示“或关系”（OR），即cat|dog表示匹配cat或dog<br />
+多个选择符可以联合使用。
+选择符会包括它前后的多个字符，比如/ab|cd/指的是匹配ab或者cd，而不是指匹配b或者c。如果想修改这个行为，可以使用圆括号。</p>
+    </blockquote>
+  </li>
+  <li><strong>转义符</strong><br />
+正则表达式中那些有特殊含义的元字符，如果要匹配它们本身，就需要在它们前面要加上反斜杠。<br />
+正则表达式中，需要反斜杠转义的，一共有12个字符：<code class="highlighter-rouge">^</code>、<code class="highlighter-rouge">.</code>、<code class="highlighter-rouge">[</code>、<code class="highlighter-rouge">$</code>、<code class="highlighter-rouge">(</code>、<code class="highlighter-rouge">)</code>、<code class="highlighter-rouge">|</code>、<code class="highlighter-rouge">*</code>、<code class="highlighter-rouge">+</code>、<code class="highlighter-rouge">?</code>、<code class="highlighter-rouge">{</code>和<code class="highlighter-rouge">\\</code>。需要特别注意的是，如果使用RegExp方法生成正则对象，转义需要使用<code class="highlighter-rouge">两个斜杠</code>，因为字符串内部会先转义一次。</li>
+  <li><strong>特殊字符</strong>
+    <blockquote>
+      <p>\cX 表示Ctrl-[X]，其中的X是A-Z之中任一个英文字母，用来匹配控制字符。<br />
+[\b] 匹配退格键(U+0008)，不要与\b混淆。<br />
+\n 匹配换行键。<br />
+\r 匹配回车键。<br />
+\t 匹配制表符 tab（U+0009）。<br />
+\v 匹配垂直制表符（U+000B）。<br />
+\f 匹配换页符（U+000C）。<br />
+\0 匹配null字符（U+0000）。<br />
+\xhh 匹配一个以两位十六进制数（\x00-\xFF）表示的字符。<br />
+\uhhhh 匹配一个以四位十六进制数（\u0000-\uFFFF）表示的 Unicode 字符。</p>
+    </blockquote>
+  </li>
+  <li><strong>字符类</strong><br />
+<strong>字符类（class）表示有一系列字符可供选择，只要匹配其中一个就可以了。所有可供选择的字符都放在方括号内，比如[xyz] 表示x、y、z之中任选一个匹配。</strong><br />
+1) <code class="highlighter-rouge">脱字符(^)</code>：如果方括号内的第一个字符是[^]，则表示除了字符类之中的字符，其他字符都可以匹配。比如，[^xyz]表示除了x、y、z之外都可以匹配。
+    <blockquote>
+      <p>如果方括号内没有其他字符，即只有[^]，就表示匹配一切字符，其中包括换行符。<br />
+脱字符只有在字符类的第一个位置才有特殊含义，否则就是字面含义。</p>
+    </blockquote>
+  </li>
+</ol>
+:ET

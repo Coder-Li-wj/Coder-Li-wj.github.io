@@ -1,0 +1,48 @@
+I"@<h4 id="新建正则表达式的方法">新建正则表达式的方法</h4>
+<ol>
+  <li>使用字面量，以斜杠表示开始和结束（常用！ 效率高，便利且直观）
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="sr">/xyz/</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>使用<code class="highlighter-rouge">RegExp</code>构造函数
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">regexp</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">RegExp</span><span class="p">(</span><span class="dl">'</span><span class="s1">xyz</span><span class="dl">'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="实例属性">实例属性</h4>
+<ol>
+  <li>修饰符：
+    <blockquote>
+      <p>1) <code class="highlighter-rouge">i</code>： 执行对大小写不敏感的匹配（忽略字母大小写）；<br />
+2) <code class="highlighter-rouge">g</code>： 执行全局匹配；<br />
+3) <code class="highlighter-rouge">m</code>： 执行多行匹配。</p>
+    </blockquote>
+  </li>
+  <li>其他：
+    <blockquote>
+      <p>1) <code class="highlighter-rouge">lastIndex</code>: 返回一个数值，表示下一次开始搜索的位置。该属性可读写，但是只在进行连续搜索时有意义;<br />
+2) <code class="highlighter-rouge">source</code>: 返回正则表达式的字符串形式（不包括反斜杠）。</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="实例方法">实例方法</h4>
+<ol>
+  <li><code class="highlighter-rouge">test()</code>：表示当前模式是否能匹配参数字符串，返回一个布尔值；
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">/</span><span class="nx">cat</span><span class="o">/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="dl">'</span><span class="s1">cats and dogs</span><span class="dl">'</span><span class="p">)</span>  <span class="c1">//true</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>PS: 如果正则表达式带有g修饰符，则每一次test方法都从上一次结束的位置开始向后匹配</p>
+  </li>
+  <li><code class="highlighter-rouge">exec</code>：该方法用来返回匹配结果。如果发现匹配，就返回一个数组，成员是匹配成功的子字符串，否则返回null。
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="o">/</span><span class="nx">x</span><span class="o">/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="dl">'</span><span class="s1">_x_x</span><span class="dl">'</span><span class="p">)</span> <span class="c1">// ["x"]</span>
+<span class="o">/</span><span class="nx">y</span><span class="o">/</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="dl">'</span><span class="s1">_x_x)  // null
+</span></pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET
