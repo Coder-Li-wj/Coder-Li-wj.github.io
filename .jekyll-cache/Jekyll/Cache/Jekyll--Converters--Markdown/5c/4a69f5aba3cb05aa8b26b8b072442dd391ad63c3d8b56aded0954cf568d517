@@ -1,0 +1,14 @@
+I"_<h4 id="什么是-less">什么是 Less？</h4>
+<p>Less 是一门CSS 预处理语言（不能直接渲染页面，要编译成css文件才可以），它是对css的扩充，增加了变量、函数、嵌套等功能，让网页开发中的css更容易维护，提高开发效率。</p>
+
+<h4 id="如何安装-less">如何安装 less</h4>
+<p>命令行：<code class="highlighter-rouge">npm i -g less</code></p>
+
+<h4 id="编译-less-文件的方法">编译 less 文件的方法</h4>
+<ol>
+  <li>命令行方式</li>
+  <li>使用 Koala 外部编译软件</li>
+  <li>Webstorm 内置 File Watch 功能</li>
+</ol>
+
+:ET

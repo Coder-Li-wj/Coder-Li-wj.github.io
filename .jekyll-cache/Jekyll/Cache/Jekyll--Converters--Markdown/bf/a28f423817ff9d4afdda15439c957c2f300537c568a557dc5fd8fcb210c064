@@ -1,0 +1,90 @@
+I"�<h4 id="什么是-less-">什么是 Less ？</h4>
+<p>Less 是一门CSS 预处理语言（不能直接渲染页面，要编译成css文件才可以），它是对css的扩充，增加了变量、函数、嵌套等功能，让网页开发中的css更容易维护，提高开发效率。</p>
+
+<h4 id="如何安装-less">如何安装 less</h4>
+<p>命令行：<code class="highlighter-rouge">npm i -g less</code></p>
+
+<h4 id="编译-less-文件的方法">编译 less 文件的方法</h4>
+<ol>
+  <li>命令行方式</li>
+  <li>使用 Koala 外部编译软件</li>
+  <li>Webstorm 内置 File Watch 功能</li>
+</ol>
+
+<h4 id="定义变量">定义变量</h4>
+<ol>
+  <li><strong>为什么使用变量？</strong><br />
+把重复使用的css属性值定义为变量，可以重复使用，方便后期css代码的维护。</li>
+  <li><strong>定义变量的语法：</strong><br />
+<code class="highlighter-rouge">@变量名称：变量值</code>（注意：变量的值一定要符合css属性值的规范）</li>
+  <li><strong>变量的使用：</strong><br />
+在css选择器中属性的名称：<code class="highlighter-rouge">@变量</code></li>
+  <li><strong>注意事项：</strong><br />
+把文件路径定义为变量时，变量与字符串拼接时要使用 <code class="highlighter-rouge">{}</code> 把变量名包起来，比如：<code class="highlighter-rouge">url("@{imgURL}bg.png")</code></li>
+</ol>
+
+<h4 id="混合">混合</h4>
+<ol>
+  <li><strong>什么是Mixins混合？</strong><br />
+简单理解就是函数，可以封装css代码，在别的选择器中调用，提高代码的重用性和可维护性。</li>
+  <li><strong>定义混合的语法：</strong><br />
+1）普通
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="p">.</span><span class="err">混合名称</span><span class="p">(){</span>  
+    <span class="c1">//封装的css代码  </span>
+<span class="p">}</span>  
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>2）带参数的混合</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="p">.</span><span class="err">混合名称</span><span class="p">(@</span><span class="err">参数名称</span><span class="p">:</span><span class="err">默认值</span><span class="p">){</span>  
+    <span class="c1">//封装的css代码  </span>
+<span class="p">}</span>  
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li><strong>如何调用混合？</strong><br />
+在选择器中直接通过 <code class="highlighter-rouge">.混合名称()</code> 调用，如有参数就加上参数 <code class="highlighter-rouge">.混合名称(#fff, 18px, ...)</code></li>
+</ol>
+
+<h4 id="匹配模式">匹配模式</h4>
+<ol>
+  <li><strong>匹配模式的含义：</strong><br />
+相当于定义相同的混合名称，根据分支的值决定执行哪个分支，但是有一个公共的分支（任何一个分支都会调用）。
+<code class="highlighter-rouge">@_</code> 表示匹配所有，通常用于定义公共部分。</li>
+  <li><strong>模式匹配的定义和使用形式：</strong><br />
+定义：
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="p">.</span><span class="nx">fun</span><span class="p">(@</span><span class="nd">_</span><span class="p">,</span> <span class="p">@</span><span class="nd">color</span><span class="p">){</span>
+    <span class="c1">//任何分支都会执行的公共部分</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nx">fun</span><span class="p">(</span><span class="nx">f1</span><span class="p">,</span> <span class="p">@</span><span class="nd">color</span><span class="p">){</span>
+    <span class="c1">//f1分支独有的代码</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nx">fun</span><span class="p">(</span><span class="nx">f2</span><span class="p">,</span> <span class="p">@</span><span class="nd">color</span><span class="p">){</span>
+    <span class="c1">//f2分支独有的代码</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+    <p>使用：</p>
+    <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="nx">h1</span><span class="p">{</span>
+    <span class="p">.</span><span class="nx">fun</span><span class="p">(</span><span class="nx">f2</span><span class="p">,</span> <span class="err">#</span><span class="nx">fffff</span><span class="p">);</span>
+    <span class="c1">//h1选择器编译后的代码包含公共部分和f2分支的代码</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ol>
+:ET
