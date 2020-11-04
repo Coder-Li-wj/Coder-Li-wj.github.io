@@ -1,0 +1,39 @@
+I"�<h3 id="git简介">Git简介</h3>
+<p>Git是一个分布式的版本控制系统，与集中式的版本控制系统不同的是，每个人都工作在通过克隆建立的本地版本控制库中。也就是说每个人都拥有一个完整的版本库，查看提交日志、提交、创建里程碑和分支、合并分支、回退等所有操作都直接在本地完成而不需要网络连接。</p>
+
+<h3 id="git三大区">Git三大区</h3>
+<p><img src="/img/versionControl/git_three_rigon.png" alt="" title="工作区、暂存区、版本库" /></p>
+
+<h3 id="git常用命令">git常用命令</h3>
+<blockquote>
+  <ol>
+    <li>git init —– 初始化本地仓库</li>
+    <li>git status —– 查看当前仓库状态</li>
+    <li>git add —– 将工作区的修改提交到当前分支
+      <blockquote>
+        <p>提交指定文件：git add *.文件后缀         提交全部文件：git add .</p>
+      </blockquote>
+    </li>
+    <li>git commit —– 将暂存区的修改提交到当前分支
+      <blockquote>
+        <p>git commit –m “本次提交描述”</p>
+      </blockquote>
+    </li>
+    <li>git push origin master —– 把代码推送到仓库</li>
+    <li>忽略不想上传的文件
+      <blockquote>
+        <p>在项目上新建一个 <code class="highlighter-rouge">.gitignore</code>文件，然后把不想上传的文件名写入 <code class="highlighter-rouge">.gitignore</code>文件中。</p>
+      </blockquote>
+    </li>
+  </ol>
+</blockquote>
+
+<p><strong>分支的使用</strong></p>
+<ol>
+  <li>创建分支：git branch 分支名</li>
+  <li>切换到对应分支：git checkout 分支名</li>
+  <li>切换到主线：git checkout master</li>
+</ol>
+
+<p><strong>主线与分支的合并：</strong>在主线在：git merge 分支名</p>
+:ET
