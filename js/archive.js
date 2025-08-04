@@ -135,7 +135,8 @@ https://github.com/kitian616/jekyll-TeXt-theme
     init(); 
     tagSelect(_tag);
 
-    $tags.on('click', 'a', function() {   /* only change */
+    $tags.on('click', 'a', function(e) {   /* only change */
+      e.preventDefault();
       tagSelect($(this).data('encode'), $(this));
     });
 
